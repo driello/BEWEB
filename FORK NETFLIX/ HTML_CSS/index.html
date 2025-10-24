@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./style.css">
+    <title>Netflux</title>
+</head>
+
+<body>
+
+    <header>
+        <h1 id="home">NETFLUX</h1>
+         <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+        <label for="menu-toggle" class="nav-toggle">☰</label>
+
+        <nav>
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#register">Register</a></li>
+                <li><a href="#login">Login</a></li>
+            </ul>
+        </nav>
+    <form>
+          <button type="submit">🔍</button>
+  <input type="search" placeholder="Rechercher...">
+</form>
+    </header>
+
+     <!-- Fenêtre modale connexion-->
+            <div id="login" class="overlay">
+                <div class="popup">
+                    <form action="connect">
+                        <input type="text" placeholder="nom d'utilisateur">
+                        <input type="password" placeholder="mot de passe">
+                    <a class="submit" href="#">Connexion</a>
+                    </form>
+                    
+                </div>
+            </div> 
+
+    <main>
+
+        <section id="abonnements">
+            <div class="abocard">
+                <h2>BASIC</h2>
+                <H3>10€ / mois</H3>
+                <ul>
+                    <li>Accès limité</li>
+                    <li>Support email</li>
+                    <li>1 utilisateur</li>
+                </ul>
+                <form action="envoyer">
+                    <input type="submit" value="S'Abonner">
+                </form>
+            </div>
+
+              <div class="abocard">
+                <h2>PREMIUM</h2>
+                <H3>20€ / mois</H3>
+                <ul>
+                    <li>Accès illimité</li>
+                    <li>Support chat</li>
+                    <li>5 utilisateur</li>
+                </ul>
+                <form action="envoyer">
+                    <input type="submit" value="S'Abonner">
+                </form>
+            </div>
+  <div class="abocard">
+                <h2>PLATINIUM</h2>
+                <H3>30€ / mois</H3>
+                <ul>
+                    <li>Accès illimité</li>
+                    <li>Support téléphone</li>
+                    <li>Utilisateurs illimités</li>
+                </ul>
+                <form action="envoyer">
+                    <input type="submit" value="S'Abonner">
+                </form>
+            </div>
+
+        </section>
+
+        <h2>FILMS</h2>
+
+        <section id="films">
+            <div class="card">
+                <a href="./black_adam.html">
+                    <img src="./img_films/black-adam-photo__22664.jpg" alt="black_adam">
+                    <h3>BLACK ADAM</h3>
+                </a>
+            </div>
+
+
+          
+
+            <div class="card">
+                <a href="#django">
+                    <img src="./img_films/django.jpg" alt="django">
+                        <h3>DJANGO UNCHAINED</h3>
+                </a>
+
+            </div>
+
+            <div class="card">
+                <img src="./img_films/doctor-strange.jpg" alt="doctor_strange">
+                    <h3>DOCTOR STRANGE</h3>
+
+            </div>
+
+            <div class="card">
+                <img src="./img_films/joker.jpg" alt="joker">
+                    <h3>JOKER</h3>
+            </div>
+
+            <div class="card">
+                <img src="./img_films/mon-beaupereet_moi.jpg" alt="beau_pere_et_moi">
+                    <h3>MON BEAU PERE ET MOI</h3>
+            </div>
+
+            <div class="card">
+                <img src="./img_films/pulp_fiction.jpg" alt="pulp_fiction">
+                    <h3>PULP FICTION</h3>
+            </div>
+
+            <div class="card">
+                <img src="./img_films/scary_movie.jpg" alt="scary_movie">
+                    <h3>SCARY MOVIE</h3>
+            </div>
+
+            <div class="card">
+                <img src="./img_films/shaft.jpg" alt="shaft">
+                
+                    <h3>SHAFT</h3>
+                
+
+            </div>
+            <div class="card">
+                <img src="./img_films/scary_movie.jpg" alt="scary_movie">
+                    <h3>SCARY MOVIE</h3>
+            </div>
+
+        </section>
+
+        <h2>SÉRIES</h2>
+
+        <section id="series">
+            <div class="card">
+                <img src="./img_serie/breaking_bad.jpg" alt="breaking_bad">
+                
+                        <h3>BREAKING BAD</h3>
+                 
+            </div>
+            <div class="card">
+                <img src="./img_serie/game_thrones.jpg" alt="games_of_thrones">             
+                        <h3>GAMES OF THRONES</h3>                 
+            </div>
+            <div class="card">
+                <img src="./img_serie/Loki-season-2.jpg" alt="loki">
+                        <h3>LOKI</h3>                   
+                </div>
+            </div>
+            <div class="card">
+                <img src="./img_serie/mercredi.jpg" alt="mercredi">             
+                        <h3>MERCREDI</h3>                
+            </div>
+            <div class="card">
+                <img src="./img_serie/montmartre.jpg" alt="montmartre">
+                        <h3>MONTMARTRE</h3>
+            </div>
+            <div class="card">
+                    <div class="card-title">
+                        <h3>PIKY BLINDER</h3>
+            </div>
+
+
+
+        </section>
+        <h2>DOCUMENTAIRES</h2>
+
+        <section id="documentaires">
+            <div class="card">
+                <img src="./img_docu/Affiche-documentaire-LGMDV.png.webp" alt="lgmdv">
+                        <h3>La Grande Migration Du Vivant</h3>
+            </div>
+            <div class="card">
+                <img src="./img_docu/Empire-Inca.png" alt="empire_inca">
+                        <h3>EMPIRE INCA</h3>
+            </div>
+            <div class="card">
+                <img src="./img_docu/gaza.png" alt="inside_gaza">
+                        <h3>INSIDE GAZA</h3>
+            </div>
+            <div class="card">
+                <img src="./img_docu/jeanne_darc.webp" alt="jeanne_d_arc">
+                        <h3>JEANNE D'ARC</h3>
+            </div>
+            <div class="card">
+                <img src="./img_docu/la_revelation_des_pyramides.jpg" alt="pyramides">
+                        <h3>LA REVELATION DES PYRAMIDES</h3>
+            </div>
+            <div class="card">
+                <img src="./img_docu/s-l1600.jpg" alt="america">
+                        <h3>AMERICA</h3>
+            </div>
+            
+        </section>
+
+        <h2>ANIMÉS</h2>
+
+        <section id="animes">
+            <div class="card">
+                <img src="./img_animes/coco.jpg" alt="coco">
+                        <h3>COCO</h3>
+            </div>
+            <div class="card">
+                <img src="./img_animes/Lego-Movie-2-.jpg" alt="lego_movie">
+                        <h3>LEGO MOVIE 2</h3>
+            </div>
+            <div class="card">
+                <img src="./img_animes/nemo.jpg" alt="nemo">
+                        <h3>NEMO</h3>
+            </div>
+
+            <div class="card">
+                    <img src="./img_animes/roi_lion.webp" alt="roi_lion">
+                        <h3>LE ROI LION</h3>
+            </div>
+            <div class="card">
+                <img src="./img_animes/spiderman.jpg" alt="spiderman">
+                        <h3>SPIDERMAN</h3>
+            </div>
+            <div class="card">
+                <img src="./img_animes/super-mario.jpg" alt="super_mario">
+                        <h3>SUPER MARIO LE FILM</h3>
+            </div>
+
+
+        </section>
+
+
+
+
+    </main>
+
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="#">About</a></li>
+                <li>&copy;NETFLUX</li>
+                 <li><a href="#">Contact</a></li>
+                <li><a href="#">Register</a></li>
+                <li><a href="#">Login</a></li>
+
+            </ul>
+        </nav>
+
+        
+       
+    </footer>
+<script src="./script.js"></script>
+</body>
+
+</html>

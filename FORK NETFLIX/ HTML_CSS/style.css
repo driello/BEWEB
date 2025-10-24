@@ -1,0 +1,265 @@
+body {
+    background: black;
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    background: rgb(223, 212, 212);
+    display: flex;
+    align-items:center;            
+  justify-content:space-around;   
+}
+a {
+  color: black;
+  text-decoration: none;
+}
+
+header h1 {
+    letter-spacing: 2px;
+    color: black;
+}
+nav ul{
+    display: flex;
+    list-style: none;
+    gap: 24px;
+
+}
+nav li {
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+.nav-toggle {     /*enleve le burger en grand ecran  */
+  display: none;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}
+@media (max-width: 768px) {   /* a partir de 768px le burger s'affiche en block*/
+  .nav-toggle {
+    display: block;
+  }
+}
+@media (max-width: 768px) {
+  nav ul{
+    display: none;
+    flex-direction: column;
+   background: rgb(105, 11, 11);
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    width: 30%;
+  }
+}
+nav ul.active {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  nav ul li a {
+    color: whitesmoke;
+    text-decoration: none;
+  }
+}
+.menu-checkbox {
+  display: none;
+}
+
+#menu-toggle:checked + .nav-toggle + nav ul {
+  display: flex;
+}
+
+
+
+
+
+#abonnements {
+  display: flex;
+  justify-content: center;
+  background: #900;
+  padding: 10px;
+  overflow-x: auto;
+}
+.abocard{
+  width: 200px;
+  background: rgb(189, 186, 185);
+}
+
+#abonnements h2{
+  text-align: center;
+  background: #900;
+}
+.abocard h3 {
+  text-align: center;
+}
+#abonnements form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  color: whitesmoke;
+}
+
+h2 {
+    color: whitesmoke;
+    margin: 25px;
+    border: 1px solid red;
+}
+section {
+    display: flex;
+     width: 100%;
+     height: auto;
+    overflow-x: auto;
+    gap : 80px;
+    background: black;
+}
+
+.card {
+    display: block;
+    height: auto;
+    width: auto;
+    gap: 50px;
+    background: rgb(167, 13, 13);
+    border: 2px solid whitesmoke;
+
+    
+}
+
+.card:hover {
+  transform: scale(1.18);
+}
+
+.card img {
+    height: 300px;
+    width: auto;
+}
+
+
+.card h3 {
+    display: block;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+
+footer {
+    color: whitesmoke;
+    display: flex;
+    justify-content: center;
+}
+
+footer li {
+    font-size: 1.2rem;
+}
+footer a {
+  color: whitesmoke;
+}
+
+.galerie img{
+  width: 180px;
+  height: auto;
+}
+
+.cardfilm{
+  width: 100%;
+  background: rgb(248, 248, 248);
+  
+}
+.cardfilm h2{
+  color: black;
+  border: none;
+}
+.cardfilm p{
+  font-size: 1.2rem;
+}
+.cardmedias {
+  display: flex;
+  gap: 10%;
+  align-items: center;
+  justify-content: center;
+}
+.cardmedias img{
+  height: 500px;
+}
+
+.galeriefilm img {
+  width: 180px;
+}
+
+
+.close {
+  display: inline-block;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  text-decoration: none;
+  background: rgb(0, 0, 0);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+
+
+
+/* --- Fenêtre modale (popup) --- */
+
+
+.overlay {
+  position:static;
+  top: 0; left: 0; right: 0; bottom: 0;
+    background: rgb(223, 212, 212);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.overlay:target {
+  display: flex;
+}
+
+.submit {
+  color: whitesmoke;
+  background: black;
+  border: #900;
+}
+
+/*
+.popimg img{
+    width: 150px;
+}
+.popup {
+  background: white;
+  color: black;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #c00;
+  justify-content: center;
+  align-items: center;
+}
+
+.close {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  background: #c00;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+
+.close:hover {
+  background: #900;
+}
+  */

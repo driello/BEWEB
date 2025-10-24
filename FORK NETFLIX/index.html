@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./style.css">
+    <title>Netflux</title>
+</head>
+
+<body>
+
+    <header>
+        <h1 id="home">NETFLUX</h1>
+         <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+        <label for="menu-toggle" class="nav-toggle">☰</label>
+
+        <nav>
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#register">Register</a></li>
+                <li><a href="#login">Login</a></li>
+            </ul>
+        </nav>
+    <form>
+          <button type="submit">🔍</button>
+  <input type="search" placeholder="Rechercher...">
+</form>
+    </header>
+
+     <!-- Fenêtre modale connexion-->
+            <div id="login" class="overlay">
+                <div class="popup">
+                    <form action="connect">
+                        <input type="text" placeholder="nom d'utilisateur">
+                        <input type="password" placeholder="mot de passe">
+                    <a class="submit" href="#">Connexion</a>
+                    </form>
+                    
+                </div>
+            </div> 
+
+    <main>
+
+        <section id="abonnements">
+            <div class="abocard">
+                <h2>BASIC</h2>
+                <H3>10€ / mois</H3>
+                <ul>
+                    <li>Accès limité</li>
+                    <li>Support email</li>
+                    <li>1 utilisateur</li>
+                </ul>
+                <form action="envoyer">
+                    <input type="submit" value="S'Abonner">
+                </form>
+            </div>
+
+              <div class="abocard">
+                <h2>PREMIUM</h2>
+                <H3>20€ / mois</H3>
+                <ul>
+                    <li>Accès illimité</li>
+                    <li>Support chat</li>
+                    <li>5 utilisateur</li>
+                </ul>
+                <form action="envoyer">
+                    <input type="submit" value="S'Abonner">
+                </form>
+            </div>
+  <div class="abocard">
+                <h2>PLATINIUM</h2>
+                <H3>30€ / mois</H3>
+                <ul>
+                    <li>Accès illimité</li>
+                    <li>Support téléphone</li>
+                    <li>Utilisateurs illimités</li>
+                </ul>
+                <form action="envoyer">
+                    <input type="submit" value="S'Abonner">
+                </form>
+            </div>
+
+        </section>
+
+
+        <section id="films" class="films">
+           
+
+        </section>
+
+
+        <section id="series">
+           
+
+        </section>
+
+        <section id="documentaires">
+           
+        </section>
+
+
+        <section id="mangas">
+            
+        </section>
+        
+        <section id="animes">
+            
+        </section>
+
+
+
+
+    </main>
+
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="#">About</a></li>
+                <li>&copy;NETFLUX</li>
+                 <li><a href="#">Contact</a></li>
+                <li><a href="#">Register</a></li>
+                <li><a href="#">Login</a></li>
+
+            </ul>
+        </nav>
+
+        
+       
+    </footer>
+<script src="./script.js"></script>
+</body>
+</html>
