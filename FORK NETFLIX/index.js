@@ -5,14 +5,14 @@
 
 // Configuration de l'API TMDB
 // Clé API personnelle pour accéder aux données de The Movie Database
-const API_KEY = '...';
+const API_KEY = 'ccd390e64b408870b938de981734f3fd';
 
 // URL de base pour toutes les requêtes API (version 3 de l'API TMDB)
-const BASE_URL = '...';
+const BASE_URL = 'https://api.themoviedb.org/3';
 
 // URL de base pour charger les images (affiches de films)
 // w500 = largeur de 500 pixels pour les images
-const IMAGE_BASE_URL = '...';
+const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
 /**
  * Fonction principale pour charger toutes les données depuis TMDB
@@ -20,13 +20,19 @@ const IMAGE_BASE_URL = '...';
  */
 async function chargerNetflopTMDB() {
     // Afficher un message dans la console pour indiquer le début du chargement
-    
+    console.log("chargement TMDB.... ");
     // Charger les 4 catégories en parallèle avec Promise.all()
     // await = attendre que toutes les promesses soient terminées
     // Promise.all() = exécuter plusieurs requêtes en même temps (plus rapide)
-    
+    await Promise.all([
+        afficherFilmsPopulaires(),
+        afficherSeriesPopulaires(),
+        afficherDocumentaires(),
+        afficherAnimes()
+    ]);
+
     // Message de succès quand tout est chargé
-    
+    console.log("TMDB Je suis chargé!!!");
     // Si une erreur se produit, l'afficher dans la console
     // Afficher une alerte à l'utilisateur
 }
@@ -41,55 +47,69 @@ async function afficherFilmsPopulaires() {
     // api_key = notre clé d'authentification
     // language=fr-FR = obtenir les résultats en français
     // page=1 = première page de résultats
-    
-    // ============================================
-    // FETCH : ÉTAPE 1 - Lancer la requête HTTP
-    // ============================================
-    // fetch(url) envoie une requête HTTP GET à l'API TMDB
-    // C'est une opération ASYNCHRONE (ne bloque pas le reste du code)
-    // await = PAUSE : attendre que le serveur réponde avant de continuer
-    // Résultat stocké dans 'response' = objet Response avec infos HTTP
-    
-    // ============================================
-    // FETCH : ÉTAPE 2 - Vérifier le code HTTP
-    // ============================================
-    // response.ok vérifie si le code HTTP est 2xx (succès)
-    // Exemples : 200 = OK, 404 = Not Found, 500 = Server Error
-    // Si erreur (404, 500...), on lance une exception
-    
-    // ============================================
-    // FETCH : ÉTAPE 3 - Convertir JSON → JavaScript
-    // ============================================
-    // Le serveur envoie les données au format JSON (texte)
-    // response.json() les convertit en objet JavaScript utilisable
-    // C'est aussi asynchrone, donc on utilise await
-    // Résultat : 'data' contient un objet avec { results: [...films] }
-    
-    // Récupérer le conteneur HTML où afficher les films
-    
-    // Vider le conteneur (supprimer le loader animé)
-    
-    // Créer un élément h2 pour le titre de la section
-    // Définir le texte du titre
-    // Ajouter le titre au conteneur
-    
-    // Créer la structure du slider avec les 15 premiers films
-    // data.results = tableau de films reçu de l'API
-    // slice(0, 15) = prendre seulement les 15 premiers
-    // 'movie' = type de contenu
-    
-    // Ajouter le slider au conteneur
-    
-    // ============================================
-    // GESTION DES ERREURS avec catch
-    // ============================================
-    // Si une erreur se produit dans le bloc try :
-    // - Erreur réseau (pas de connexion internet)
-    // - Erreur HTTP (404, 500...)
-    // - Erreur de parsing JSON
-    // Le code "saute" directement ici dans le catch
-    // On affiche l'erreur dans la console pour déboguer
+    try {
+        const url = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=fr-FR&page=1`;
+        // ============================================
+        // FETCH : ÉTAPE 1 - Lancer la requête HTTP
+        // ============================================
+        // fetch(url) envoie une requête HTTP GET à l'API TMDB
+        // C'est une opération ASYNCHRONE (ne bloque pas le reste du code)
+        // await = PAUSE : attendre que le serveur réponde avant de continuer
+        // Résultat stocké dans 'response' = objet Response avec infos HTTP
+        const response = await fetch(url);
+        // ============================================
+        // FETCH : ÉTAPE 2 - Vérifier le code HTTP
+        // ============================================
+        // response.ok vérifie si le code HTTP est 2xx (succès)
+        // Exemples : 200 = OK, 404 = Not Found, 500 = Server Error
+        // Si erreur (404, 500...), on lance une exception
+        if (!response.ok) {
+            throw new Error('Erreur: ' + response.status);
+        }
+
+        // ============================================
+        // FETCH : ÉTAPE 3 - Convertir JSON → JavaScript
+        // ============================================
+        // Le serveur envoie les données au format JSON (texte)
+        // response.json() les convertit en objet JavaScript utilisable
+        // C'est aussi asynchrone, donc on utilise await
+        // Résultat : 'data' contient un objet avec { results: [...films] }
+        const data = await response.json();
+
+        // Récupérer le conteneur HTML où afficher les films
+        let container = document.getElementById('films');
+        // Vider le conteneur (supprimer le loader animé)
+        container.textContent = "";
+        // Créer un élément h2 pour le titre de la section
+        // Définir le texte du titre
+        // Ajouter le titre au conteneur
+        let titreFilm = document.createElement("h2");
+        titreFilm.textContent = ("Films Populaires");
+        container.appendChild(titreFilm);
+        // Créer la structure du slider avec les 15 premiers films
+        // data.results = tableau de films reçu de l'API
+        // slice(0, 15) = prendre seulement les 15 premiers
+        // 'movie' = type de contenu
+        // Ajouter le slider au conteneur
+        const slider = Array.isArray(data.results) ? data.results.slice(0, 15) : [];
+        console.log(data.results);
+
+        // APPENCHILD!!!!!!!!!
+
+        // GESTION DES ERREURS avec catch
+        // ============================================
+        // Si une erreur se produit dans le bloc try :
+        // - Erreur réseau (pas de connexion internet)
+        // - Erreur HTTP (404, 500...)
+        // - Erreur de parsing JSON
+        // Le code "saute" directement ici dans le catch
+        // On affiche l'erreur dans la console pour déboguer
+
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
 }
+
 
 /**
  * Fonction pour afficher les séries TV populaires dans un slider
@@ -98,26 +118,37 @@ async function afficherFilmsPopulaires() {
 async function afficherSeriesPopulaires() {
     // Construire l'URL pour récupérer les séries populaires
     // tv/popular = endpoint pour les séries TV populaires
-    
-    // Faire la requête fetch et attendre la réponse
-    
-    // Vérifier si la requête a réussi
-    
-    // Convertir la réponse JSON en objet JavaScript
-    
-    // Récupérer le conteneur HTML pour les séries
-    
-    // Vider le conteneur (supprimer le loader)
-    
-    // Créer le titre de la section
-    // Ajouter le titre au conteneur
-    
-    // Créer le slider avec les 15 premières séries
-    // 'tv' = type de contenu (série TV)
-    
-    // Ajouter le slider au conteneur
-    
-    // Afficher l'erreur dans la console
+    try {
+        const url = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=fr-FR&page=1`;
+        // Faire la requête fetch et attendre la réponse
+        const response = await fetch(url);
+        // Vérifier si la requête a réussi
+        if (!response.ok)
+            throw new Error('Erreur: ' + response.status);
+
+        // Convertir la réponse JSON en objet JavaScript
+        const data = await response.json();
+        // Récupérer le conteneur HTML pour les séries
+        let container = document.getElementById('series');
+        // Vider le conteneur (supprimer le loader)
+        container.textContent = "";
+        // Créer le titre de la section
+        // Ajouter le titre au conteneur
+        let titreSeries = document.createElement('h2');
+        titreSeries.textContent = "Séries Populaires";
+        container.appendChild(titreSeries);
+
+        // Créer le slider avec les 15 premières séries
+        // 'tv' = type de contenu (série TV)
+        const slider = Array.isArray(data.results) ? data.results.slice(0, 15) : [];
+        console.log(data.results);
+
+        // Ajouter le slider au conteneur
+
+        // Afficher l'erreur dans la console
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
 }
 
 /**
@@ -129,26 +160,37 @@ async function afficherDocumentaires() {
     // discover/movie = endpoint pour découvrir des films avec filtres
     // with_genres=99 = ID 99 correspond au genre "Documentaire"
     // sort_by=popularity.desc = trier par popularité décroissante
-    
-    // Faire la requête fetch et attendre la réponse
-    
-    // Vérifier si la requête a réussi
-    
-    // Convertir la réponse JSON en objet JavaScript
-    
-    // Récupérer le conteneur HTML pour les documentaires
-    
-    // Vider le conteneur (supprimer le loader)
-    
-    // Créer le titre de la section
-    // Ajouter le titre au conteneur
-    
-    // Créer le slider avec les 15 premiers documentaires
-    // 'movie' car les documentaires sont considérés comme des films
-    
-    // Ajouter le slider au conteneur
-    
-    // Afficher l'erreur dans la console
+    try {
+        const url = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=99&language=fr-FR&page=1`;
+
+        // Faire la requête fetch et attendre la réponse
+        const response = await fetch(url);
+
+        // Vérifier si la requête a réussi
+        if (!response.ok)
+            throw new Error('Erreur: ' + response.status);
+        // Convertir la réponse JSON en objet JavaScript
+        const data = await response.json();
+        // Récupérer le conteneur HTML pour les documentaires
+        let container = document.getElementById('documentaires');
+        // Vider le conteneur (supprimer le loader)
+        container.textContent = "";
+        // Créer le titre de la section
+        // Ajouter le titre au conteneur
+        let titreDocu = document.createElement('h2')
+        titreDocu.textContent = "Documentaires";
+        container.appendChild(titreDocu);
+        // Créer le slider avec les 15 premiers documentaires
+        // 'movie' car les documentaires sont considérés comme des films
+        const slider = Array.isArray(data.results) ? data.results.slice(0, 15) : [];
+        console.log(data.results);
+
+        // Ajouter le slider au conteneur
+
+        // Afficher l'erreur dans la console
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
 }
 
 /**
@@ -161,26 +203,38 @@ async function afficherAnimes() {
     // with_genres=16 = ID 16 correspond au genre "Animation"
     // with_origin_country=JP = filtrer par pays d'origine = Japon
     // sort_by=popularity.desc = trier par popularité décroissante
-    
-    // Faire la requête fetch et attendre la réponse
-    
-    // Vérifier si la requête a réussi
-    
-    // Convertir la réponse JSON en objet JavaScript
-    
-    // Récupérer le conteneur HTML pour les animes
-    
-    // Vider le conteneur (supprimer le loader)
-    
-    // Créer le titre de la section
-    // Ajouter le titre au conteneur
-    
-    // Créer le slider avec les 15 premiers animes
-    // 'tv' car les animes sont des séries TV
-    
-    // Ajouter le slider au conteneur
-    
-    // Afficher l'erreur dans la console
+    try {
+        const url = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&with_genres=16&with_origin_country=JP&sort_by=popularity.desc&language=fr-FR&page=1`;
+
+        // Faire la requête fetch et attendre la réponse
+        const response = await fetch(url);
+        // Vérifier si la requête a réussi
+        if (!response.ok)
+            throw new Error('Erreur: ' + response.status);
+
+        // Convertir la réponse JSON en objet JavaScript
+        const data = await response.json();
+
+        // Récupérer le conteneur HTML pour les animes
+        let container = document.getElementById('animes');
+        // Vider le conteneur (supprimer le loader)
+        container.textContent = "";
+        // Créer le titre de la section
+        // Ajouter le titre au conteneur
+        let titreAnimes = document.createElement('h2');
+        titreAnimes.textContent = "Animés Japonais"
+        container.appendChild(titreAnimes);
+        // Créer le slider avec les 15 premiers animes
+        // 'tv' car les animes sont des séries TV
+        const slider = Array.isArray(data.results) ? data.results.slice(0, 15) : [];
+        console.log(data.results);
+
+        // Ajouter le slider au conteneur
+
+        // Afficher l'erreur dans la console
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
 }
 
 /**
@@ -192,22 +246,22 @@ async function afficherAnimes() {
 function creerSlider(items, type) {
     // Créer le conteneur principal qui va contenir tout le slider
     // Ajouter la classe CSS 'slider-container'
-    
+    let slideContainer = document.createElement('card'); 
     // === BOUTON PRÉCÉDENT (gauche) ===
     // Créer un bouton pour naviguer vers la gauche
     // Ajouter les classes CSS pour le style et la position
     // Ajouter le symbole flèche gauche (◄) avec code HTML
     // Désactiver le bouton par défaut (on est au début)
-    
+
     // === BOUTON SUIVANT (droite) ===
     // Créer un bouton pour naviguer vers la droite
     // Ajouter les classes CSS pour le style et la position
     // Ajouter le symbole flèche droite (►) avec code HTML
-    
+
     // === WRAPPER DES CARTES ===
     // Créer le conteneur qui va contenir toutes les cartes
     // Ajouter la classe CSS (display: flex, overflow-x: hidden)
-    
+
     // === AJOUTER TOUTES LES CARTES ===
     // Parcourir chaque élément (film ou série) du tableau items
     // Créer une carte pour cet élément
@@ -218,37 +272,37 @@ function creerSlider(items, type) {
     // Calculer la distance de scroll (80% de la largeur visible)
     // Si direction est 'next', scroller vers la droite
     // Sinon, scroller vers la gauche
-    
+
     // === FONCTION POUR METTRE À JOUR LES BOUTONS ===
     // Active ou désactive les boutons selon la position du scroll
     // Désactiver le bouton précédent si on est tout à gauche (début)
     // scrollLeft <= 0 signifie qu'on ne peut plus aller à gauche
-    
+
     // Calculer la position maximale du scroll (largeur totale - largeur visible)
     // Désactiver le bouton suivant si on est tout à droite (fin)
     // -10 pour une petite marge d'erreur
-    
+
     // === ÉVÉNEMENTS DES BOUTONS ===
     // Quand on clique sur le bouton précédent
     // Scroller vers la gauche
     // Après 300ms, mettre à jour l'état des boutons (attendre la fin de l'animation)
-    
+
     // Quand on clique sur le bouton suivant
     // Scroller vers la droite
     // Après 300ms, mettre à jour l'état des boutons
-    
+
     // === ÉVÉNEMENT DE SCROLL ===
     // Quand l'utilisateur scroll manuellement, mettre à jour les boutons
-    
+
     // === INITIALISATION ===
     // Vérifier l'état initial des boutons après un court délai
     // (nécessaire pour que le DOM soit bien rendu)
-    
+
     // === ASSEMBLER LE SLIDER ===
     // Ajouter le bouton précédent au conteneur
     // Ajouter le wrapper des cartes au conteneur
     // Ajouter le bouton suivant au conteneur
-    
+
     // Retourner le slider complet
 }
 
@@ -262,63 +316,63 @@ function creerCarteTMDB(item, type) {
     // === CRÉER LE CONTENEUR PRINCIPAL ===
     // Créer un div qui va contenir toute la carte
     // Ajouter la classe CSS 'card' pour le style
-    
+
     // === EXTRAIRE LES DONNÉES SELON LE TYPE ===
     // Si c'est un film, utiliser 'title', sinon utiliser 'name' (pour les séries)
-    
+
     // Si c'est un film, utiliser 'release_date', sinon 'first_air_date' (séries)
-    
+
     // Récupérer le résumé, ou mettre un message par défaut s'il n'existe pas
-    
+
     // Récupérer la note moyenne et la formater à 1 décimale (ex: 7.3)
     // Si pas de note, afficher 'N/A'
-    
+
     // Construire l'URL complète de l'image (affiche du film)
     // Si poster_path existe, utiliser l'URL TMDB, sinon image placeholder
-    
+
     // === CRÉER L'IMAGE ===
     // Créer un élément img pour l'affiche du film
     // Définir la source de l'image
     // Définir le texte alternatif (pour l'accessibilité)
     // Ajouter la classe CSS pour le style
-    
+
     // Gérer les erreurs de chargement d'image
     // Si l'image ne charge pas, afficher une image placeholder
-    
+
     // === CRÉER LE CONTENEUR DES INFORMATIONS ===
     // Créer un div pour contenir toutes les informations textuelles
     // Ajouter la classe CSS pour le style
-    
+
     // === CRÉER LE TITRE ===
     // Créer un élément h3 pour le titre du film/série
     // Définir le texte du titre
-    
+
     // === CRÉER L'ÉLÉMENT NOTE ===
     // Créer un paragraphe pour afficher la note
     // Définir le contenu HTML avec l'étoile et la note
-    
+
     // === AJOUTER UNE COULEUR SELON LA NOTE ===
     // Convertir la note en nombre pour la comparer
     // Si note >= 7, couleur verte (bonne note)
     // Si note entre 5 et 7, couleur orange (note moyenne)
     // Si note < 5, couleur rouge (mauvaise note)
-    
+
     // === CRÉER L'ÉLÉMENT DATE DE SORTIE ===
     // Créer un paragraphe pour la date de sortie
     // Si dateSortie existe, la formater en français (jj/mm/aaaa)
     // Sinon afficher 'Date inconnue'
     // Définir le contenu HTML avec la date formatée
-    
+
     // === CRÉER LE BADGE DE TYPE ===
     // Créer un span pour afficher le type (Film ou Série)
     // Ajouter la classe CSS
     // Si type est 'movie', afficher "🎬 Film", sinon "📺 Série"
     // Ajouter des styles inline pour le badge (fond rouge, texte blanc, arrondi)
-    
+
     // === CRÉER LE CONTENEUR DU RÉSUMÉ ===
     // Créer un div pour contenir le résumé
     // Ajouter la classe CSS
-    
+
     // === CRÉER L'ÉLÉMENT RÉSUMÉ ===
     // Créer un paragraphe pour le résumé
     // Ajouter la classe CSS
@@ -327,28 +381,28 @@ function creerCarteTMDB(item, type) {
     // text-overflow: ellipsis = ajouter ... à la fin
     // -webkit-line-clamp: 3 = limiter à 3 lignes
     // Définir le contenu HTML avec le résumé
-    
+
     // Ajouter le résumé au conteneur
-    
+
     // === ASSEMBLER TOUS LES ÉLÉMENTS ===
     // Ajouter le titre au conteneur d'informations
     // Ajouter le badge de type
     // Ajouter la note
     // Ajouter la date de sortie
     // Ajouter le conteneur du résumé
-    
+
     // Ajouter l'image à la carte
     // Ajouter les informations à la carte
-    
+
     // === AJOUTER UN ÉVÉNEMENT DE CLIC ===
     // Changer le curseur en pointeur (main) au survol
     // Ajouter un événement click pour ouvrir la page de détails
     // Vérifier que ce n'est pas un bouton de slider qui a été cliqué
     // Si c'est un bouton slider, ne rien faire
-    
+
     // Construire l'URL de la page de détails selon le type (film ou série)
     // Ouvrir l'URL dans la même fenêtre
-    
+
     // Retourner la carte complète
 }
 
@@ -366,15 +420,15 @@ async function rechercherContenu(query) {
     // Construire l'URL de recherche
     // search/multi = rechercher dans films ET séries en même temps
     // encodeURIComponent() = encoder les caractères spéciaux pour l'URL
-    
+
     // Faire la requête fetch et attendre la réponse
-    
+
     // Vérifier si la requête a réussi
-    
+
     // Convertir la réponse JSON en objet JavaScript
     // Afficher les résultats dans la console
     // Retourner le tableau des résultats
-    
+
     // En cas d'erreur, l'afficher dans la console
     // Retourner un tableau vide
 }
@@ -390,15 +444,15 @@ async function obtenirDetailsFilm(movieId) {
     // Construire l'URL pour obtenir les détails d'un film spécifique
     // movie/{movieId} = endpoint pour un film précis
     // append_to_response=credits,videos = inclure aussi les acteurs et vidéos
-    
+
     // Faire la requête fetch et attendre la réponse
-    
+
     // Vérifier si la requête a réussi
-    
+
     // Convertir la réponse JSON en objet JavaScript
     // Afficher les détails dans la console
     // Retourner l'objet contenant tous les détails
-    
+
     // En cas d'erreur, l'afficher dans la console
     // Retourner null pour indiquer qu'il y a eu une erreur
 }
@@ -429,20 +483,20 @@ async function obtenirFilmsParGenre(genreId) {
      * 10752 = Guerre
      * 37 = Western
      */
-    
+
     // Construire l'URL pour découvrir des films par genre
     // discover/movie = découvrir des films avec filtres
     // with_genres = filtrer par ID de genre
     // sort_by=popularity.desc = trier par popularité décroissante
-    
+
     // Faire la requête fetch et attendre la réponse
-    
+
     // Vérifier si la requête a réussi
-    
+
     // Convertir la réponse JSON en objet JavaScript
     // Afficher les résultats dans la console
     // Retourner le tableau des films
-    
+
     // En cas d'erreur, l'afficher dans la console
     // Retourner un tableau vide
 }
@@ -455,16 +509,17 @@ async function obtenirFilmsParGenre(genreId) {
  * Fonction d'initialisation qui se lance au chargement de la page
  * DOMContentLoaded = événement déclenché quand le HTML est complètement chargé
  */
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Afficher un message dans la console pour confirmer que le DOM est chargé
-    
+
     // === VÉRIFICATION DE LA CLÉ API ===
     // Vérifier si la clé API a été remplacée par une vraie clé
     // Si la clé n'a pas été changée, afficher une alerte
     // Afficher un message d'erreur dans la console
     // Afficher les instructions pour obtenir une clé API
     // Arrêter l'exécution (ne pas charger les données)
-    
+
     // === LANCEMENT DE L'APPLICATION ===
     // Si la clé API est valide, charger toutes les données
 });
+chargerNetflopTMDB();
