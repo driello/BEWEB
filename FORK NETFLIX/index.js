@@ -287,7 +287,6 @@ function creerSlider(items, type) {
     // Créer une carte pour cet élément
     // Ajouter la carte au wrapper
     for (let i = 0; i < items.length; i++) {
-        console.log('Création de carte', i, items[i], type);
 
         let card = creerCarteTMDB(items[i], type);
         cardsContainer.appendChild(card);
@@ -350,7 +349,7 @@ function creerSlider(items, type) {
     sliderContainer.appendChild(leftBtn);
     sliderContainer.appendChild(cardsContainer);
     sliderContainer.appendChild(rightBtn);
-    return sliderContainer();
+    return (sliderContainer);
 }
 
 /**
@@ -370,29 +369,30 @@ function creerCarteTMDB(item, type) {
     // Si c'est un film, utiliser 'title', sinon utiliser 'name' (pour les séries)
     let titre;
     if (type === 'movie') {
-        titre = 'item.title' || 'Sans titre';
+        titre = item.title || 'Sans titre';
     } else if (type === 'tv')
-        titre = 'item.name' || 'Sans titre';
+        titre = item.name || 'Sans titre';
 
     // Si c'est un film, utiliser 'release_date', sinon 'first_air_date' (séries)
     let dateBrute;
     if (type === 'movie') {
         dateBrute = item.release_date
     }
-else { dateBrute = item.first_air_date; }
+    else if (type === 'tv') {
+         dateBrute = item.first_air_date; }
 
     // Récupérer le résumé, ou mettre un message par défaut s'il n'existe pas
-    let resume = { 'item.overview': 'Resumé indisponible.' };
+    let resume = item.overview || 'Resumé indisponible.';
 
     // Récupérer la note moyenne et la formater à 1 décimale (ex: 7.3)
     // Si pas de note, afficher 'N/A'
-    let noteStr = (typeof "item.vote_average" === 'number') ? item.vote_average.toFixed(1) : 'N/A';
+    let noteStr = (typeof item.vote_average === 'number') ? item.vote_average.toFixed(1) : 'N/A';
 
     // Construire l'URL complète de l'image (affiche du film)
     // Si poster_path existe, utiliser l'URL TMDB, sinon image placeholder
-let imgSrc = item.poster_path 
-    ? `${IMAGE_BASE_URL}${item.poster_path}` 
-    : 'no-picture.jpg';
+    let imgSrc = item.poster_path
+        ? `${IMAGE_BASE_URL}${item.poster_path}`
+        : 'no-picture.jpg';
 
     /**/
     // === CRÉER L'IMAGE ===
@@ -457,7 +457,7 @@ let imgSrc = item.poster_path
     // -webkit-line-clamp: 3 = limiter à 3 lignes
     // Définir le contenu HTML avec le résumé
     let resumer = document.createElement('p');
-    resumer.textContent = resume;
+    resumer.textContent = `${resume}`;
     // Ajouter le résumé au conteneur
     cardResume.appendChild(resumer);
     // === ASSEMBLER TOUS LES ÉLÉMENTS ===
@@ -487,7 +487,7 @@ let imgSrc = item.poster_path
     // Ouvrir l'URL dans la même fenêtre
 
     // Retourner la carte complète
-    return creerCarteTMDB();
+    return (cardMedia);
 }
 
 // ========================================

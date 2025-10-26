@@ -292,6 +292,14 @@ background: greenyellow;
   background: #900;
 }
 
+.sliderContainer{
+  display: flex;
+  overflow-x: auto;
+}
+.slider-wrapper{
+  display: flex;
+  overflow-x: auto;
+}
 
 .resumer{
 
