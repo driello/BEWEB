@@ -4,20 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
     <title>Netflux</title>
 </head>
 
 <body>
 
-    <header>
-        <h1 id="home">NETFLUX</h1>
-         <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+    <header class="row px-1">
+        <div class="col-md-2 d-flex justify-content-center">
+            <h1 id="home">NETFLUX</h1>
+        </div>
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox">
         <label for="menu-toggle" class="nav-toggle">☰</label>
 
-        <nav>
-            <ul>
+        <nav class="col-md-5 d-flex align-items-center mt-3" >
+            <ul class="d-flex justify-content-center ">
                 <li><a href="./index.html">Home</a></li>
                 <li><a href="#">Movies</a></li>
                 <li><a href="#">About</a></li>
@@ -26,28 +29,32 @@
                 <li><a href="#login">Login</a></li>
             </ul>
         </nav>
-    <form>
-          <button type="submit">🔍</button>
-  <input type="search" placeholder="Rechercher...">
-</form>
-  <!-- Fenêtre modale connexion-->
+        <div class="col-md-5 d-flex justify-content-center align-items-center flex-wrap">
+            <form>
+                <button type="submit">🔍</button>
+                <input type="search" placeholder="Rechercher...">
+
+            </form>
+            <!-- Fenêtre modale connexion-->
             <div id="login" class="overlay">
                 <div class="popup">
                     <form action="connect">
                         <input type="text" placeholder="nom d'utilisateur">
                         <input type="password" placeholder="mot de passe">
-                    <a class="submit" href="#">Connexion</a>
+                        <a class="submit" href="#">Connexion</a>
                     </form>
-                    
+
                 </div>
-            </div> 
+            </div>
+
+        </div>
     </header>
 
-   
+
 
     <main>
 
-        <section id="abonnements">
+        <section id="abonnements" class="d-flex justify-content-center" >
             <div class="abocard">
                 <h2>BASIC</h2>
                 <H3>10€ / mois</H3>
@@ -56,12 +63,12 @@
                     <li>Support email</li>
                     <li>1 utilisateur</li>
                 </ul>
-                <form action="envoyer">
+                <form class="d-flex justify-content-center" action="envoyer">
                     <input type="submit" value="S'Abonner">
                 </form>
             </div>
 
-              <div class="abocard">
+            <div class="abocard">
                 <h2>PREMIUM</h2>
                 <H3>20€ / mois</H3>
                 <ul>
@@ -69,11 +76,11 @@
                     <li>Support chat</li>
                     <li>5 utilisateur</li>
                 </ul>
-                <form action="envoyer">
+                <form action="envoyer" class="d-flex justify-content-center">
                     <input type="submit" value="S'Abonner">
                 </form>
             </div>
-  <div class="abocard">
+            <div class="abocard">
                 <h2>PLATINIUM</h2>
                 <H3>30€ / mois</H3>
                 <ul>
@@ -81,7 +88,7 @@
                     <li>Support téléphone</li>
                     <li>Utilisateurs illimités</li>
                 </ul>
-                <form action="envoyer">
+                <form action="envoyer" class="d-flex justify-content-center">
                     <input type="submit" value="S'Abonner">
                 </form>
             </div>
@@ -104,9 +111,9 @@
         <section id="animes">
 
         </section>
-        
 
-        
+
+
 
 
 
@@ -120,16 +127,14 @@
                 <li><a href="#">Movies</a></li>
                 <li><a href="#">About</a></li>
                 <li>&copy;NETFLUX</li>
-                 <li><a href="#">Contact</a></li>
+                <li><a href="#">Contact</a></li>
                 <li><a href="#">Register</a></li>
                 <li><a href="#">Login</a></li>
 
             </ul>
         </nav>
-
-        
-       
     </footer>
-<script src="./index.js"></script>
+    <script src="./index.js"></script>
 </body>
+
 </html>

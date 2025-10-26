@@ -85,8 +85,7 @@ async function afficherFilmsPopulaires() {
         // Ajouter le titre au conteneur
         let titreFilm = document.createElement("h2");
         titreFilm.textContent = ("Films Populaires");
-        container.appendChild(titreFilm);
-        // Créer la structure du slider avec les 15 premiers films
+        container.parentNode.insertBefore(titreFilm, container);        // Créer la structure du slider avec les 15 premiers films
         // data.results = tableau de films reçu de l'API
         // slice(0, 15) = prendre seulement les 15 premiers
         // 'movie' = type de contenu
@@ -379,7 +378,8 @@ function creerCarteTMDB(item, type) {
         dateBrute = item.release_date
     }
     else if (type === 'tv') {
-         dateBrute = item.first_air_date; }
+        dateBrute = item.first_air_date;
+    }
 
     // Récupérer le résumé, ou mettre un message par défaut s'il n'existe pas
     let resume = item.overview || 'Resumé indisponible.';
