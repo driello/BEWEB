@@ -27,7 +27,7 @@ nav ul{
 }
 nav li {
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 .nav-toggle {     /*enleve le burger en grand ecran  */
   display: none;
@@ -46,7 +46,7 @@ nav li {
   nav ul{
     display: none;
     flex-direction: column;
-   background: rgb(105, 11, 11);
+   background: rgb(5, 4, 31);
     position: absolute;
     top: 60px;
     left: 0;
@@ -264,8 +264,42 @@ footer a {
 }
 
 
-/*.card-info {
-  background: rgb(0, 0, 0);
-  align-items: center;
-  padding-right: 50px;
-}*/
+.cardsConatiner {
+  display: flex;
+  overflow-x: hidden;
+  gap: 12px;
+}
+.cardImage{
+  width :300px;
+}
+
+.cardInfo{
+  color: black;
+}
+
+.slider-btn{
+
+background: greenyellow;
+}
+.btnGauche{
+  border: 1px solid red;
+}
+
+
+
+
+.cardResume{
+  background: #900;
+}
+
+
+.resumer{
+
+  overflow: hidden;              /* Cache le texte qui dépasse */
+  text-overflow: ellipsis;       /* Ajoute "..." à la fin */
+  display: -webkit-box;          /* Nécessaire pour le line clamp */
+  -webkit-line-clamp: 3;         /* Limite à 3 lignes */
+  -webkit-box-orient: vertical;  /* Orientation du bloc */
+  
+   line-clamp: 3;             /* Propriété standard (nouvelle syntaxe) */
+}

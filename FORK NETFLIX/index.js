@@ -74,7 +74,7 @@ async function afficherFilmsPopulaires() {
         // response.json() les convertit en objet JavaScript utilisable
         // C'est aussi asynchrone, donc on utilise await
         // Résultat : 'data' contient un objet avec { results: [...films] }
-        const data = await response.json();
+        let data = await response.json();
 
         // Récupérer le conteneur HTML où afficher les films
         let container = document.getElementById('films');
@@ -91,7 +91,9 @@ async function afficherFilmsPopulaires() {
         // slice(0, 15) = prendre seulement les 15 premiers
         // 'movie' = type de contenu
         // Ajouter le slider au conteneur
-        const slider = Array.isArray(data.results) ? data.results.slice(0, 15) : [];
+        let type = Array.isArray(data.results) ? data.results.slice(0, 15) : [];
+        let slider = creerSlider(type, 'movie');
+        container.appendChild(slider);
         console.log(data.results);
 
         // APPENCHILD!!!!!!!!!
@@ -140,7 +142,9 @@ async function afficherSeriesPopulaires() {
 
         // Créer le slider avec les 15 premières séries
         // 'tv' = type de contenu (série TV)
-        const slider = Array.isArray(data.results) ? data.results.slice(0, 15) : [];
+        let type = Array.isArray(data.results) ? data.results.slice(0, 15) : [];
+        let slider = creerSlider(type, 'tv');
+        container.appendChild(slider);
         console.log(data.results);
 
         // Ajouter le slider au conteneur
@@ -182,7 +186,9 @@ async function afficherDocumentaires() {
         container.appendChild(titreDocu);
         // Créer le slider avec les 15 premiers documentaires
         // 'movie' car les documentaires sont considérés comme des films
-        const slider = Array.isArray(data.results) ? data.results.slice(0, 15) : [];
+        let type = Array.isArray(data.results) ? data.results.slice(0, 15) : [];
+        let slider = creerSlider(type, 'movie');
+        container.appendChild(slider);
         console.log(data.results);
 
         // Ajouter le slider au conteneur
@@ -215,6 +221,7 @@ async function afficherAnimes() {
         // Convertir la réponse JSON en objet JavaScript
         const data = await response.json();
 
+
         // Récupérer le conteneur HTML pour les animes
         let container = document.getElementById('animes');
         // Vider le conteneur (supprimer le loader)
@@ -226,7 +233,9 @@ async function afficherAnimes() {
         container.appendChild(titreAnimes);
         // Créer le slider avec les 15 premiers animes
         // 'tv' car les animes sont des séries TV
-        const slider = Array.isArray(data.results) ? data.results.slice(0, 15) : [];
+        const type = Array.isArray(data.results) ? data.results.slice(0, 15) : [];
+        let slider = creerSlider(type, 'tv')
+        container.appendChild(slider);
         console.log(data.results);
 
         // Ajouter le slider au conteneur
@@ -246,64 +255,102 @@ async function afficherAnimes() {
 function creerSlider(items, type) {
     // Créer le conteneur principal qui va contenir tout le slider
     // Ajouter la classe CSS 'slider-container'
-    let slideContainer = document.createElement('card'); 
+    let sliderContainer = document.createElement('div');
+    sliderContainer.className = 'slider_container';
     // === BOUTON PRÉCÉDENT (gauche) ===
     // Créer un bouton pour naviguer vers la gauche
     // Ajouter les classes CSS pour le style et la position
     // Ajouter le symbole flèche gauche (◄) avec code HTML
     // Désactiver le bouton par défaut (on est au début)
+    let leftBtn = document.createElement('button');
+    leftBtn.className = 'slider-btn btnGauche';
+    leftBtn.innerHTML = '&#9668';
+    leftBtn.disabled = true; // ← Désactiver le bouton par défaut (on est au début)
 
     // === BOUTON SUIVANT (droite) ===
     // Créer un bouton pour naviguer vers la droite
     // Ajouter les classes CSS pour le style et la position
     // Ajouter le symbole flèche droite (►) avec code HTML
+    let rightBtn = document.createElement('button');
+    rightBtn.className = 'slider-btn btnGauche';
+    rightBtn.innerHTML = '&#9658';
+    rightBtn.disabled = true; // ← Désactiver le bouton par défaut (on est au début)
 
     // === WRAPPER DES CARTES ===
     // Créer le conteneur qui va contenir toutes les cartes
     // Ajouter la classe CSS (display: flex, overflow-x: hidden)
+    let cardsContainer = document.createElement('div');
+    cardsContainer.className = 'slider-wrapper';   // pour appliquer les styles (flex, overflow-x hidden, etc.)
 
     // === AJOUTER TOUTES LES CARTES ===
     // Parcourir chaque élément (film ou série) du tableau items
     // Créer une carte pour cet élément
     // Ajouter la carte au wrapper
-    
+    for (let i = 0; i < items.length; i++) {
+        console.log('Création de carte', i, items[i], type);
+
+        let card = creerCarteTMDB(items[i], type);
+        cardsContainer.appendChild(card);
+    };
+
     // === FONCTION DE SCROLL ===
     // Fonction pour faire défiler le slider vers la gauche ou la droite
     // Calculer la distance de scroll (80% de la largeur visible)
     // Si direction est 'next', scroller vers la droite
     // Sinon, scroller vers la gauche
-
+    function scrollSlider(direction) {
+        const distance = Math.floor(cardsContainer.clientWidth * 0.8);
+        if (direction === 'next') {
+            cardsContainer.scrollBy({ left: distance, behavior: 'smooth' });
+        }
+        else {
+            cardsContainer.scrollBy({ left: -distance, behavior: 'smooth' });
+        }
+    }
     // === FONCTION POUR METTRE À JOUR LES BOUTONS ===
     // Active ou désactive les boutons selon la position du scroll
     // Désactiver le bouton précédent si on est tout à gauche (début)
     // scrollLeft <= 0 signifie qu'on ne peut plus aller à gauche
-
+    function majBtn() {
+        leftBtn.disabled = cardsContainer.scrollLeft <= 0;
+    }
     // Calculer la position maximale du scroll (largeur totale - largeur visible)
     // Désactiver le bouton suivant si on est tout à droite (fin)
     // -10 pour une petite marge d'erreur
-
+    const maxScroll = cardsContainer.scrollWidth - cardsContainer.clientWidth;
+    rightBtn.disabled = cardsContainer.scrollLeft >= (maxScroll - 10);
     // === ÉVÉNEMENTS DES BOUTONS ===
     // Quand on clique sur le bouton précédent
     // Scroller vers la gauche
     // Après 300ms, mettre à jour l'état des boutons (attendre la fin de l'animation)
-
+    leftBtn.addEventListener('click', function () {
+        scrollSlider('prev');
+        setTimeout(majBtn, 300);
+    })
     // Quand on clique sur le bouton suivant
     // Scroller vers la droite
     // Après 300ms, mettre à jour l'état des boutons
+    rightBtn.addEventListener('click', function () {
+        scrollSlider('next');
+        setTimeout(majBtn, 300);
 
+    })
     // === ÉVÉNEMENT DE SCROLL ===
     // Quand l'utilisateur scroll manuellement, mettre à jour les boutons
-
+    cardsContainer.addEventListener('scroll', majBtn);
     // === INITIALISATION ===
     // Vérifier l'état initial des boutons après un court délai
     // (nécessaire pour que le DOM soit bien rendu)
-
+    setTimeout(majBtn, 0);
     // === ASSEMBLER LE SLIDER ===
     // Ajouter le bouton précédent au conteneur
     // Ajouter le wrapper des cartes au conteneur
     // Ajouter le bouton suivant au conteneur
-
     // Retourner le slider complet
+    sliderContainer.appendChild(leftBtn);
+    sliderContainer.appendChild(cardsContainer);
+    sliderContainer.appendChild(rightBtn);
+    return sliderContainer();
 }
 
 /**
@@ -317,40 +364,63 @@ function creerCarteTMDB(item, type) {
     // Créer un div qui va contenir toute la carte
     // Ajouter la classe CSS 'card' pour le style
 
+    let cardMedia = document.createElement('div');
+    cardMedia.className = 'card';
     // === EXTRAIRE LES DONNÉES SELON LE TYPE ===
     // Si c'est un film, utiliser 'title', sinon utiliser 'name' (pour les séries)
+    let titre;
+    if (type === 'movie') {
+        titre = 'item.title' || 'Sans titre';
+    } else if (type === 'tv')
+        titre = 'item.name' || 'Sans titre';
 
     // Si c'est un film, utiliser 'release_date', sinon 'first_air_date' (séries)
+    let dateBrute;
+    if (type === 'movie') {
+        dateBrute = item.release_date
+    }
+else { dateBrute = item.first_air_date; }
 
     // Récupérer le résumé, ou mettre un message par défaut s'il n'existe pas
+    let resume = { 'item.overview': 'Resumé indisponible.' };
 
     // Récupérer la note moyenne et la formater à 1 décimale (ex: 7.3)
     // Si pas de note, afficher 'N/A'
+    let noteStr = (typeof "item.vote_average" === 'number') ? item.vote_average.toFixed(1) : 'N/A';
 
     // Construire l'URL complète de l'image (affiche du film)
     // Si poster_path existe, utiliser l'URL TMDB, sinon image placeholder
+let imgSrc = item.poster_path 
+    ? `${IMAGE_BASE_URL}${item.poster_path}` 
+    : 'no-picture.jpg';
 
+    /**/
     // === CRÉER L'IMAGE ===
     // Créer un élément img pour l'affiche du film
     // Définir la source de l'image
     // Définir le texte alternatif (pour l'accessibilité)
     // Ajouter la classe CSS pour le style
-
+    let cardImage = document.createElement('img');
+    cardImage.setAttribute('alt', 'mon image');
+    cardImage.src = imgSrc;
+    cardImage.alt = titre;
     // Gérer les erreurs de chargement d'image
     // Si l'image ne charge pas, afficher une image placeholder
 
     // === CRÉER LE CONTENEUR DES INFORMATIONS ===
     // Créer un div pour contenir toutes les informations textuelles
     // Ajouter la classe CSS pour le style
-
+    let cardInfo = document.createElement('div');
     // === CRÉER LE TITRE ===
     // Créer un élément h3 pour le titre du film/série
     // Définir le texte du titre
-
+    let cardTitre = document.createElement('h3');
+    cardTitre.textContent = titre;
     // === CRÉER L'ÉLÉMENT NOTE ===
     // Créer un paragraphe pour afficher la note
     // Définir le contenu HTML avec l'étoile et la note
-
+    let cardNote = document.createElement('p');
+    cardNote.textContent = noteStr;
     // === AJOUTER UNE COULEUR SELON LA NOTE ===
     // Convertir la note en nombre pour la comparer
     // Si note >= 7, couleur verte (bonne note)
@@ -362,6 +432,10 @@ function creerCarteTMDB(item, type) {
     // Si dateSortie existe, la formater en français (jj/mm/aaaa)
     // Sinon afficher 'Date inconnue'
     // Définir le contenu HTML avec la date formatée
+    let dateSortie = document.createElement('p');
+
+
+    dateSortie.textContent = dateBrute;
 
     // === CRÉER LE BADGE DE TYPE ===
     // Créer un span pour afficher le type (Film ou Série)
@@ -372,6 +446,7 @@ function creerCarteTMDB(item, type) {
     // === CRÉER LE CONTENEUR DU RÉSUMÉ ===
     // Créer un div pour contenir le résumé
     // Ajouter la classe CSS
+    let cardResume = document.createElement('div');
 
     // === CRÉER L'ÉLÉMENT RÉSUMÉ ===
     // Créer un paragraphe pour le résumé
@@ -381,18 +456,26 @@ function creerCarteTMDB(item, type) {
     // text-overflow: ellipsis = ajouter ... à la fin
     // -webkit-line-clamp: 3 = limiter à 3 lignes
     // Définir le contenu HTML avec le résumé
-
+    let resumer = document.createElement('p');
+    resumer.textContent = resume;
     // Ajouter le résumé au conteneur
-
+    cardResume.appendChild(resumer);
     // === ASSEMBLER TOUS LES ÉLÉMENTS ===
     // Ajouter le titre au conteneur d'informations
     // Ajouter le badge de type
     // Ajouter la note
     // Ajouter la date de sortie
     // Ajouter le conteneur du résumé
+    cardInfo.appendChild(cardTitre);
 
+    cardInfo.appendChild(cardNote);
+    cardInfo.appendChild(dateSortie);
+    cardInfo.appendChild(cardResume);
     // Ajouter l'image à la carte
     // Ajouter les informations à la carte
+    cardMedia.appendChild(cardImage);
+    cardMedia.appendChild(cardInfo);
+
 
     // === AJOUTER UN ÉVÉNEMENT DE CLIC ===
     // Changer le curseur en pointeur (main) au survol
@@ -404,6 +487,7 @@ function creerCarteTMDB(item, type) {
     // Ouvrir l'URL dans la même fenêtre
 
     // Retourner la carte complète
+    return creerCarteTMDB();
 }
 
 // ========================================
