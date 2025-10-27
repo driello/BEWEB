@@ -12,30 +12,23 @@
 
 <body>
 
-    <header class="row px-1">
-        <div class="col-md-2 d-flex justify-content-center">
-            <h1 id="home">NETFLUX</h1>
-        </div>
-        <input type="checkbox" id="menu-toggle" class="menu-checkbox">
-        <label for="menu-toggle" class="nav-toggle">☰</label>
+<header>
+  <h1 id="home">NETFLUX</h1>
 
-        <nav class="col-md-5 d-flex align-items-center mt-3" >
-            <ul class="d-flex justify-content-center ">
-                <li><a href="./index.html">Home</a></li>
-                <li><a href="#">Movies</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#register">Register</a></li>
-                <li><a href="#login">Login</a></li>
-            </ul>
-        </nav>
-        <div class="col-md-5 d-flex justify-content-center align-items-center flex-wrap">
-            <form>
-                <button type="submit">🔍</button>
-                <input type="search" placeholder="Rechercher...">
+  <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+  <label for="menu-toggle" class="nav-toggle">☰</label>
 
-            </form>
-            <!-- Fenêtre modale connexion-->
+  <nav>
+    <ul>
+      <li><a href="./index.html">Home</a></li>
+      <li><a href="#">Movies</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#register">Register</a></li>
+      <li><a href="#login">Login</a></li>
+    </ul>
+  </nav>
+ <!-- Fenêtre modale connexion-->
             <div id="login" class="overlay">
                 <div class="popup">
                     <form action="connect">
@@ -46,9 +39,14 @@
 
                 </div>
             </div>
+  <div class="search">
+    <form>
+      <button type="submit">🔍</button>
+      <input type="search" placeholder="Rechercher...">
+    </form>
+  </div>
+</header>
 
-        </div>
-    </header>
 
 
 

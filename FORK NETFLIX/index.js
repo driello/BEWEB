@@ -433,9 +433,10 @@ function creerCarteTMDB(item, type) {
     // Sinon afficher 'Date inconnue'
     // Définir le contenu HTML avec la date formatée
     let dateSortie = document.createElement('p');
-
-
     dateSortie.textContent = dateBrute;
+    if (dateSortie === true){
+
+    }
 
     // === CRÉER LE BADGE DE TYPE ===
     // Créer un span pour afficher le type (Film ou Série)

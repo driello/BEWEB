@@ -1,91 +1,124 @@
-body {
-    background-color: #141414;
-
-}
+/* ====== Base ====== */
+body { background-color: #141414; color: #E5E5E5; }
 
 header {
+  display: flex;
+
   background-color: #141414;
-  color: #E5E5E5;
   padding: 15px 40px;
- 
 }
 
+/* aligne les colonnes Bootstrap du header verticalement */
+header.row { align-items: center; }
+
+/* Logo */
 header h1 {
   color: #E50914;
   letter-spacing: 2px;
+  margin: 0;
+}
+
+/* ====== Nav liens ====== */
+nav ul {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 nav a {
   color: #B3B3B3;
   text-decoration: none;
-  margin: 0 15px;
   transition: color 0.3s;
 }
 
-nav a:hover {
-  color: #FFFFFF;
+nav a:hover { color: #FFFFFF; }
+
+/* ====== Recherche (form du header) ====== */
+header form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
 }
 
-
-nav ul{
-    display: flex;
-    list-style: none;
-    gap: 24px;
-
+header form input[type="search"]{
+  background: #222;
+  border: 1px solid #333;
+  color: #E5E5E5;
+  padding: 8px 10px;
+  border-radius: 4px;
 }
-nav li {
-    text-decoration: none;
-    font-size: 1rem;
-}
-.nav-toggle {     /*enleve le burger en grand ecran  */
-  display: none;
-  font-size: 28px;
-  background: none;
-  border: none;
-  color: rgb(0, 0, 0);
+
+header form button {
+  background: transparent;
+  border: 1px solid #333;
+  color: #E5E5E5;
+  padding: 8px 10px;
+  border-radius: 4px;
   cursor: pointer;
 }
-@media (max-width: 768px) {   /* a partir de 768px le burger s'affiche en block*/
-  .nav-toggle {
-    display: block;
-  }
-}
-@media (max-width: 768px) {
-  nav ul{
-    display: none;
-    flex-direction: column;
-   background: rgb(5, 4, 31);
-    position: absolute;
-    top: 60px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    width: 30%;
-  }
-}
-nav ul.active {
-  display: flex;
-}
 
-@media (max-width: 768px) {
-  nav ul li a {
-    color: whitesmoke;
-    text-decoration: none;
-  }
-}
-.menu-checkbox {
+/* ====== Burger (checkbox + label) ====== */
+.menu-checkbox { position: absolute; left: -9999px; } /* cache la vraie checkbox */
+
+/* caché en desktop */
+.nav-toggle {
   display: none;
+  font-size: 28px;
+  line-height: 1;
+  background: none;
+  border: 0;
+  color: #E5E5E5;
+  cursor: pointer;
+
+  /* positionné dans le header sans casser la grille */
+  position: absolute;
+  left: 12px;
+  top: 18px;
 }
 
-#menu-toggle:checked + .nav-toggle + nav ul {
-  display: flex;
-}
+/* ====== Responsive (mobile) ====== */
+@media (max-width: 768px) {
 
+  /* montre le burger en mobile */
+  .nav-toggle { display: block; }
+
+  /* nav + recherche cachées par défaut */
+  nav,
+  header .col-md-5 { display: none; }
+
+  /* quand le menu est ouvert (checkbox cochée), on affiche nav + recherche */
+  #menu-toggle:checked ~ nav,
+  #menu-toggle:checked ~ .col-md-5 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    padding: 16px 0;
+    background: #141414;
+    z-index: 1000;
+    gap: 16px;
+  }
+
+  /* nav en colonne dans l’overlay mobile */
+  #menu-toggle:checked ~ nav ul {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+}
 
 #abonnements {
   background-color: #141414;
   padding: 50px 0;
   gap: 40px;
+  overflow-x: auto;
 }
 
 .abocard{
@@ -111,6 +144,13 @@ nav ul.active {
   color: whitesmoke;
 }
 
+
+@media (max-width: 768px){
+  #abonnements{
+    display: flex;
+    overflow-x: hidden;
+  }
+}
 
 h2 {
     color: rgb(0, 0, 0);
@@ -161,63 +201,12 @@ section {
 }
 
 
-footer {
-   background-color: #141414;
-  color: #E5E5E5;
-  display: flex;
-  justify-content: center;
-}
-
-footer li {
-    font-size: 1.2rem;
-    margin: 20px;
-}
-footer a {
-  color: whitesmoke;
-}
-
-.galerie img{
-  width: 180px;
-  height: auto;
-}
-
-.cardfilm{
-  width: 100%;
-  background: rgb(248, 248, 248);
-  
-}
-.cardfilm h2{
-  color: black;
-  border: none;
-}
-.cardfilm p{
-  font-size: 1.2rem;
-}
-.cardmedias {
-  display: flex;
-  gap: 10%;
-  align-items: center;
-  justify-content: center;
-}
-.cardmedias img{
-  height: 500px;
-}
-
-.galeriefilm img {
-  width: 180px;
-}
 
 
-.close {
-  display: inline-block;
-  margin-bottom: 20px;
-  margin-left: 20px;
-  text-decoration: none;
-  background: rgb(0, 0, 0);
-  color: white;
-  padding: 8px 15px;
-  border-radius: 5px;
-}
+
+
+
+
 
 
 
@@ -276,7 +265,7 @@ footer a {
 
 .cardsConatiner {
   display: flex;
-  overflow-x: hidden;
+  overflow-x: auto;
   gap: 12px;
 }
 .cardImage{
@@ -291,14 +280,11 @@ footer a {
 
 background: greenyellow;
   }
+
 .btnGauche{
   border: 1px solid red;
 }
 
-
-.cardResume{
-  background: #900;
-}
 
 .sliderContainer{
   position: relative;
@@ -324,4 +310,20 @@ background: greenyellow;
   -webkit-box-orient: vertical;  /* Orientation du bloc */
   
    line-clamp: 3;             /* Propriété standard (nouvelle syntaxe) */
+}
+
+
+footer {
+   background-color: #141414;
+  color: #E5E5E5;
+  display: flex;
+  justify-content: center;
+}
+
+footer li {
+    font-size: 1.2rem;
+    margin: 20px;
+}
+footer a {
+  color: whitesmoke;
 }
