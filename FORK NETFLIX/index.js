@@ -137,7 +137,7 @@ async function afficherSeriesPopulaires() {
         // Ajouter le titre au conteneur
         let titreSeries = document.createElement('h2');
         titreSeries.textContent = "Séries Populaires";
-        container.appendChild(titreSeries);
+        container.parentNode.insertBefore(titreSeries, container);        // Créer la structure du slider avec les 15 premiers films
 
         // Créer le slider avec les 15 premières séries
         // 'tv' = type de contenu (série TV)
@@ -182,7 +182,7 @@ async function afficherDocumentaires() {
         // Ajouter le titre au conteneur
         let titreDocu = document.createElement('h2')
         titreDocu.textContent = "Documentaires";
-        container.appendChild(titreDocu);
+        container.parentNode.insertBefore(titreDocu, container);        // Créer la structure du slider avec les 15 premiers films
         // Créer le slider avec les 15 premiers documentaires
         // 'movie' car les documentaires sont considérés comme des films
         let type = Array.isArray(data.results) ? data.results.slice(0, 15) : [];
@@ -229,7 +229,7 @@ async function afficherAnimes() {
         // Ajouter le titre au conteneur
         let titreAnimes = document.createElement('h2');
         titreAnimes.textContent = "Animés Japonais"
-        container.appendChild(titreAnimes);
+        container.parentNode.insertBefore(titreAnimes, container);        // Créer la structure du slider avec les 15 premiers films
         // Créer le slider avec les 15 premiers animes
         // 'tv' car les animes sont des séries TV
         const type = Array.isArray(data.results) ? data.results.slice(0, 15) : [];
@@ -271,7 +271,7 @@ function creerSlider(items, type) {
     // Ajouter les classes CSS pour le style et la position
     // Ajouter le symbole flèche droite (►) avec code HTML
     let rightBtn = document.createElement('button');
-    rightBtn.className = 'slider-btn btnGauche';
+    rightBtn.className = 'slider-btn btndroit';
     rightBtn.innerHTML = '&#9658';
     rightBtn.disabled = true; // ← Désactiver le bouton par défaut (on est au début)
 
@@ -457,6 +457,7 @@ function creerCarteTMDB(item, type) {
     // -webkit-line-clamp: 3 = limiter à 3 lignes
     // Définir le contenu HTML avec le résumé
     let resumer = document.createElement('p');
+    resumer.className = "resumer";
     resumer.textContent = `${resume}`;
     // Ajouter le résumé au conteneur
     cardResume.appendChild(resumer);
