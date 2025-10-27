@@ -392,7 +392,7 @@ function creerCarteTMDB(item, type) {
     // Si poster_path existe, utiliser l'URL TMDB, sinon image placeholder
     let imgSrc = item.poster_path
         ? `${IMAGE_BASE_URL}${item.poster_path}`
-        : 'no-picture.jpg';
+        : 'no-picture';
 
     /**/
     // === CRÉER L'IMAGE ===
@@ -407,6 +407,7 @@ function creerCarteTMDB(item, type) {
     // Gérer les erreurs de chargement d'image
     // Si l'image ne charge pas, afficher une image placeholder
 
+    
     // === CRÉER LE CONTENEUR DES INFORMATIONS ===
     // Créer un div pour contenir toutes les informations textuelles
     // Ajouter la classe CSS pour le style
@@ -420,22 +421,31 @@ function creerCarteTMDB(item, type) {
     // Créer un paragraphe pour afficher la note
     // Définir le contenu HTML avec l'étoile et la note
     let cardNote = document.createElement('p');
-    cardNote.textContent = noteStr;
+    cardNote.innerHTML = `⭐️ ${noteStr}`;
     // === AJOUTER UNE COULEUR SELON LA NOTE ===
     // Convertir la note en nombre pour la comparer
     // Si note >= 7, couleur verte (bonne note)
     // Si note entre 5 et 7, couleur orange (note moyenne)
     // Si note < 5, couleur rouge (mauvaise note)
-
+    let noteCouleur = parseFloat(noteStr);          // parseFloat convertit la note en nombre
+    if (noteCouleur >= 7) {
+        cardNote.style.color = 'green';
+    } else if (noteCouleur >= 5) {
+        cardNote.style.color = 'orange';
+    } else {
+        cardNote.style.color = 'red';
+    }
     // === CRÉER L'ÉLÉMENT DATE DE SORTIE ===
     // Créer un paragraphe pour la date de sortie
     // Si dateSortie existe, la formater en français (jj/mm/aaaa)
     // Sinon afficher 'Date inconnue'
     // Définir le contenu HTML avec la date formatée
     let dateSortie = document.createElement('p');
-    dateSortie.textContent = dateBrute;
-    if (dateSortie === true){
-
+    if (dateBrute) {
+        let date = new Date(dateBrute);
+        dateSortie.textContent = date.toLocaleDateString('fr-FR');   // .toLocaleDateString('fr-FR') fonction pour mettre le format date fr
+    } else {
+        dateSortie.textContent = 'Date inconnue';
     }
 
     // === CRÉER LE BADGE DE TYPE ===
@@ -443,7 +453,14 @@ function creerCarteTMDB(item, type) {
     // Ajouter la classe CSS
     // Si type est 'movie', afficher "🎬 Film", sinon "📺 Série"
     // Ajouter des styles inline pour le badge (fond rouge, texte blanc, arrondi)
-
+    let badge = document.createElement('span');
+    badge.className ='badge';
+    if (type === 'movie'){
+        badge.innerHTML = '🎬';
+    } else badge.innerHTML = '📺';
+    badge.style.background = 'red';
+    badge.style.color = 'white';
+    badge.style.borderRadius = '10px';
     // === CRÉER LE CONTENEUR DU RÉSUMÉ ===
     // Créer un div pour contenir le résumé
     // Ajouter la classe CSS
@@ -469,7 +486,7 @@ function creerCarteTMDB(item, type) {
     // Ajouter la date de sortie
     // Ajouter le conteneur du résumé
     cardInfo.appendChild(cardTitre);
-
+    cardInfo.appendChild(badge);
     cardInfo.appendChild(cardNote);
     cardInfo.appendChild(dateSortie);
     cardInfo.appendChild(cardResume);
@@ -484,7 +501,10 @@ function creerCarteTMDB(item, type) {
     // Ajouter un événement click pour ouvrir la page de détails
     // Vérifier que ce n'est pas un bouton de slider qui a été cliqué
     // Si c'est un bouton slider, ne rien faire
+     cardMedia.onclick = function () {
+            window.location.href = `itemDetail.html`;
 
+        }
     // Construire l'URL de la page de détails selon le type (film ou série)
     // Ouvrir l'URL dans la même fenêtre
 

@@ -3,9 +3,10 @@ body { background-color: #141414; color: #E5E5E5; }
 
 header {
   display: flex;
-
+justify-content: space-around;
   background-color: #141414;
   padding: 15px 40px;
+  margin-top: 10px;
 }
 
 /* aligne les colonnes Bootstrap du header verticalement */
@@ -60,6 +61,31 @@ header form button {
   cursor: pointer;
 }
 
+/* --- Fenêtre modale (popup) --- */
+
+
+.overlay {
+  position:static;
+  top: 0; left: 0; right: 0; bottom: 0;
+    background: rgb(223, 212, 212);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.overlay:target {
+  display: flex;
+}
+
+.submit {
+  color: whitesmoke;
+  background: black;
+  border: #900;
+}
+
+
+
 /* ====== Burger (checkbox + label) ====== */
 .menu-checkbox { position: absolute; left: -9999px; } /* cache la vraie checkbox */
 
@@ -111,30 +137,29 @@ header form button {
     flex-direction: column;
     gap: 12px;
   }
-
+header form{
+  display: block;
+}
 }
 
 #abonnements {
   background-color: #141414;
   padding: 50px 0;
   gap: 40px;
-  overflow-x: auto;
 }
 
 .abocard{
-  width: 25%;
+  width: 300px;
  background-color: #3e105e;
   color: #E5E5E5;
   border-radius: 10px;
   padding: 30px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 #abonnements h2{
   background: rgb(200, 197, 197);
   text-align: center;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 .abocard h3 {
   text-align: center;
@@ -148,9 +173,33 @@ header form button {
 @media (max-width: 768px){
   #abonnements{
     display: flex;
-    overflow-x: hidden;
+    flex-direction: column;
+  align-items: center; 
+  }
+  .abocard{
+    display: flex;
+    width: 90%;
+    height: 120px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+  }
+  .abocard h2 {
+    font-size: 1.2rem;
+  }
+  .abocard h3 {
+    font-size: 1.2rem;
+  }
+  .abocard ul{
+        list-style: none;
+        width: 50%;
+        
+        
+
   }
 }
+
+
 
 h2 {
     color: rgb(0, 0, 0);
@@ -179,97 +228,39 @@ section {
     width: 340px;
     gap: 50px;
     background: rgb(225, 212, 212);
-    border: 2px solid whitesmoke;
+    border: 2px solid whitesmoke;  
+}
 
-    
+@media (max-width: 450px){
+  .card{
+    width: 300px;
+    height: auto;
+  }
+  .card img {
+    width: 120px;
+  }
 }
 
 .card:hover {
-  transform: scale(1.18);
+  transform: scale(1.10);
 }
 
 .card img {
     width: 320px;
     height: auto;
+    
 }
+.badge{
 
+position: absolute;
+
+left: 60px;
+}
 
 .card h3 {
-    display: block;
     text-align: center;
-    font-size: x-large;
-}
-
-
-
-
-
-
-
-
-
-
-
-/* --- Fenêtre modale (popup) --- */
-
-
-.overlay {
-  position:static;
-  top: 0; left: 0; right: 0; bottom: 0;
-    background: rgb(223, 212, 212);
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-
-
-.overlay:target {
-  display: flex;
-}
-
-.submit {
-  color: whitesmoke;
-  background: black;
-  border: #900;
-}
-
-
-.cardMedia{
-  background: rgb(5, 5, 5);
-  display: grid;
-  grid-template-columns: repeat(2, 50%);
-  grid-template-rows: 70% 30%;
- 
-}
-.cardMedia img {
-  height: 50%;
-  margin-left: 50px;
-}
-
-.cardMedia h3{
-  font-size: 2rem;
-    margin-left: 20px;
-    color: whitesmoke;
-    border: 1px solid red;
-    margin-right: 50px;
-
-}
-.cardMedia p{
-  font-size: 1.2rem;
-  margin-left: 20px;
-  background: whitesmoke;
-  margin-right: 50px;
-
-}
-
-
-.cardsConatiner {
-  display: flex;
-  overflow-x: auto;
-  gap: 12px;
-}
-.cardImage{
-  width :300px;
+    margin-top: 10px;
+    
 }
 
 .cardInfo{
