@@ -1,0 +1,277 @@
+/*
+BONNE PRATIQUE CLAASER LE CSS DANS L'ORDRE 
+1 BALISES DANS L'ORDRE
+2 CLASS   ""    ""  
+3 ID      ""    ""  
+*/
+
+body {
+    background: rgb(225, 146, 0);
+    margin: 10px;
+}
+
+header {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+    margin-top: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+}
+
+h2 {
+    background: whitesmoke;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: whitesmoke;
+    padding-top: 10px;
+}
+
+article img {
+    max-width: 250px;
+    max-height: 150px;
+}
+
+.dark {
+    background: black;
+}
+
+.dark header,
+.dark .burger {
+    color: wheat;
+    background: rgb(50, 37, 12);
+
+}
+
+.dark article {
+    background: black;
+    color: whitesmoke;
+}
+
+.dark nav a {
+    color: whitesmoke;
+}
+
+.dark .horaires {
+    background: wheat;
+    color: black;
+}
+
+.dark .presentation {
+    color: whitesmoke;
+    background: rgb(50, 37, 12);
+}
+
+.dark .infoCommerce {
+    color: whitesmoke;
+    background: rgb(50, 37, 12);
+}
+
+.dark .produits {
+    color: whitesmoke;
+    background: rgb(50, 37, 12);
+}
+
+.dark h2 {
+    background: rgb(50, 37, 12);
+    color: wheat;
+
+}
+
+/* Desktop par défaut : burger caché */
+.burger {
+    display: none;
+}
+
+
+.presentation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: wheat;
+}
+
+.presentation img {
+    aspect-ratio: 4 / 3;
+    width: 80%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.presentation p {
+    margin-top: 20px;
+}
+
+
+.infoCommerce {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: wheat;
+}
+
+.horaires {
+    background: whitesmoke;
+    margin-top: 10px;
+    margin-right: 10px;
+border-radius: 10px;
+}
+.horaires h3 {
+    text-align: center;
+}
+
+.contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.map {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.produits {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: wheat;
+
+}
+
+.fournisseurs {
+    display: flex;
+    justify-content: space-around;
+}
+
+.fournisseurs article {
+    width: 30%;
+}
+
+
+
+#section1 {
+    display: grid;
+    grid-template-columns: 65% 35%;
+}
+
+
+#section1 p {
+    width: 80%;
+}
+
+
+
+/* --- Menu burger : logique d'affichage --- */
+
+/* Mobile : burger visible, nav cachée (sauf .active) */
+@media (max-width: 768px) {
+    .burger {
+        display: inline-block;
+        font-size: 24px;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        margin-right: auto;
+        /* pousse à droite dans le header flex */
+    }
+
+    header nav {
+        display: none;
+        position: absolute;
+        top: 60px;
+        /* juste en dessous du header */
+        left: 100;
+        width: 50%;
+        background: rgb(200, 164, 56);
+        border-radius: 10px;
+    }
+
+    header nav.active {
+        display: flex;
+        padding: 10px;
+    }
+     nav ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    header {
+        display: flex;
+        gap: 20px;
+    }
+
+    header h1 {
+        text-align: center;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    article {
+        margin-inline: 10px;
+    }
+
+
+    .presentation {
+        margin: 0;
+        width: 100%;
+    }
+
+    .produits {
+        overflow-x: auto;
+    }
+
+
+    .fournisseurs {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .fournisseurs article {
+        width: 90%;
+    }
+
+    #section1 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #section1 img {
+        width: 80%;
+        margin: 10px;
+    }
+
+}

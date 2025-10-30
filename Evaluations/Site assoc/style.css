@@ -1,0 +1,145 @@
+/* ====== Header responsive simple ====== */
+header {
+  background: #c61717;
+  color: #fff;
+  
+}
+
+header h1,
+.site-title {
+  font-size: 1.5rem;
+  font-weight: 700;   /* gras identique */
+  margin: 0;
+  margin-top: 4px;    /* espace entre le titre et le menu */
+  text-align: start;
+  line-height: 1.2;   /* homogénéise la hauteur de ligne */
+  display: block;     /* évite toute variation inline */
+}
+
+/* barre nav de base */
+header nav ul{
+  list-style:none;
+  max-width: 100%;
+    gap: 8px;
+    box-sizing: border-box;
+}
+
+header nav a{
+  font-weight:700;
+  font-size: 1.4rem;
+  text-decoration:none;
+  color: whitesmoke;
+}
+
+ h1 {
+   font-size: 2.1rem;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: #c61717;
+ }
+
+  main h2 {
+    font-size: 2.1rem;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: #c61717;
+  }
+
+  p {
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  
+.presentation {
+  display: flex;
+  flex-wrap: wrap;         /* passe en colonne sur petits écrans */
+  gap: 2rem;               /* espace entre image et texte */
+  align-items: center;     /* centre verticalement */
+  margin: 2rem auto;
+  max-width: 1200px;       /* largeur max */
+  padding: 0 1rem;         /* marges internes */
+  text-align: center;
+
+}
+.presentation img {
+  flex: 1 1 400px;         /* occupe minimum 400px, mais flexible */
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  min-width: 80%;
+}
+
+.activite {
+       /* largeur max pour la lisibilité */
+  margin: 0 auto;        /* centre la section horizontalement */
+  text-align: center;    /* centre le texte et le titre */
+}
+
+
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 9px;
+  text-align: center;
+
+}
+.card img{
+ height: 260px;
+width: 100%;
+object-fit: cover;
+}
+.card h2 {
+  font-size: 1.8rem;
+  background: #c61717;
+  color: whitesmoke;
+}
+.card h3 {
+  font-size: 1.2rem;
+font-style: italic;
+text-decoration: underline;
+}
+
+.article h2 {
+font-style: italic;
+  background: #c61717;
+  color: whitesmoke;
+  text-align: start;
+  padding-left: 1rem;
+  padding-block: 0.5rem;
+  border-radius: 20px;
+  margin-inline: 1rem;
+  margin-top: 1.5rem;
+}
+
+
+
+footer {
+  text-shadow: 10px 10px 10px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.157);
+
+}
+
+/* ====== Mobile (<= 768px) ====== */
+@media (max-width: 768px) {
+  .presentation {
+    flex-direction: column;      /* empile logo/titre puis menu */
+   }
+   .nav ol {
+    flex-direction: column;
+   }
+}
+
+/* petit écran : menu sous le titre, bien espacé */
+@media (max-width: 600px){
+  header .header-inner{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:.5rem;
+  }
+  header nav ul{
+    justify-content:center; /* évite le débordement */
+    row-gap: .25rem;
+  }
+}

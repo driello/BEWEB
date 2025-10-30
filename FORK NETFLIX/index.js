@@ -232,7 +232,7 @@ async function afficherAnimes() {
         container.parentNode.insertBefore(titreAnimes, container);        // Créer la structure du slider avec les 15 premiers films
         // Créer le slider avec les 15 premiers animes
         // 'tv' car les animes sont des séries TV
-        const type = Array.isArray(data.results) ? data.results.slice(0, 15) : [];
+        const type = Array.isArray(data.results) ? data.results.slice(0, 20) : [];
         let slider = creerSlider(type, 'tv')
         container.appendChild(slider);
         console.log(data.results);
@@ -407,7 +407,7 @@ function creerCarteTMDB(item, type) {
     // Gérer les erreurs de chargement d'image
     // Si l'image ne charge pas, afficher une image placeholder
 
-    
+
     // === CRÉER LE CONTENEUR DES INFORMATIONS ===
     // Créer un div pour contenir toutes les informations textuelles
     // Ajouter la classe CSS pour le style
@@ -454,13 +454,13 @@ function creerCarteTMDB(item, type) {
     // Si type est 'movie', afficher "🎬 Film", sinon "📺 Série"
     // Ajouter des styles inline pour le badge (fond rouge, texte blanc, arrondi)
     let badge = document.createElement('span');
-    badge.className ='badge';
-    if (type === 'movie'){
-        badge.innerHTML = '🎬';
-    } else badge.innerHTML = '📺';
+    badge.className = 'badge';
+    if (type === 'movie') {
+        badge.innerHTML = '🎬 Film';
+    } else badge.innerHTML = '📺 Série';
     badge.style.background = 'red';
     badge.style.color = 'white';
-    badge.style.borderRadius = '10px';
+    badge.style.borderRadius = '100px';
     // === CRÉER LE CONTENEUR DU RÉSUMÉ ===
     // Créer un div pour contenir le résumé
     // Ajouter la classe CSS
@@ -501,10 +501,12 @@ function creerCarteTMDB(item, type) {
     // Ajouter un événement click pour ouvrir la page de détails
     // Vérifier que ce n'est pas un bouton de slider qui a été cliqué
     // Si c'est un bouton slider, ne rien faire
-     cardMedia.onclick = function () {
-            window.location.href = `itemDetail.html`;
+    cardMedia.style.cursor = 'pointer';
+    cardMedia.onclick = function () {
+        console.log(item.id, type);
+        window.location.href = `itemDetail.html?id=${item.id}&type=${type}&language=fr-FR`;
 
-        }
+    }
     // Construire l'URL de la page de détails selon le type (film ou série)
     // Ouvrir l'URL dans la même fenêtre
 

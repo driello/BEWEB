@@ -1,0 +1,253 @@
+.container {
+    width: 100%;
+    background: rgb(218, 212, 212);
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-inline: 2%;
+
+}
+
+header img {
+    width: 24px;
+    height: auto;
+}
+
+.c1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.entreprise {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.entreprise p {
+    margin: 0;
+    padding: 0;
+    margin-right: 2%;
+    font-size: 0.8rem;
+}
+
+
+
+nav img {
+    max-width: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+nav a {
+    display: flex;
+    font-weight: 600;
+    text-decoration: none;
+    color: #000;
+    padding: 25px;
+    font-size: 1.1rem;
+    
+ 
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+
+}
+
+nav li {
+    flex: 0 0 auto;
+    /* largeur selon contenu */
+    border: 1px solid  #000;
+}
+
+
+.entete {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-right: 400px;
+    margin-left: 20px;
+    padding: 0;
+    margin-block: 0;
+}
+
+section {
+    width: 100%;
+    height: auto;
+}
+
+
+.coordonnees img {
+    display: flex;
+    width: 24px;
+    height: auto;
+    margin-inline: 1rem;
+
+}
+
+.coordonnees {
+    border: 3px solid rgb(0, 0, 0);
+    margin: 1rem;
+    float: left;
+    width: 44%;
+}
+
+.bordel {
+    margin: 1rem;
+    float: left;
+    width: 44%;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.bd1 {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.bd1 h3 img {
+    width: 24px;
+    height: auto;
+    margin-left: 15px;
+}
+
+.bd2 {
+    border: 2px solid black;
+    float: left; 
+    width: 30%;
+    text-align: center;  /* centre tout le contenu */
+    padding: 12px; 
+  
+ 
+}
+.bd2 h3 {
+     margin: 0 0 8px 0;         /* réduit espace sous le titre */
+}
+.bd2 img {
+    width: 24px;
+    justify-content: center;
+    text-align: center;
+}
+
+.bd3 {
+    border: 2px solid black;
+    float: right;
+    flex: auto;
+    width: 58%;
+}
+
+.bd3 li {
+    list-style: none;
+    display: flex;
+}
+.bd3 img {
+    width: 24px;
+}
+.bd3 h3 {
+    text-align: center;
+    margin: 0;
+}
+
+.operations {
+    border: 1px solid rgb(0, 0, 0);
+    margin: 1rem;
+    float: left;
+    width: 44%;
+
+}
+
+.op1 {
+    display: flex;
+    justify-content: start;
+}
+.op1 img {
+    width: 24px;
+    margin-inline: 1rem;
+}
+
+.important {
+    border: 1px solid #000;
+    margin: 1rem;
+    float: left;
+    width: 44%;
+}
+.important img {
+     width: 24px;
+  height: auto;
+  margin: 1rem;
+}
+.imp {
+    display: flex;
+}
+.imptitre {
+    display: flex;
+}
+
+.label {
+  font-weight: bold;
+  color: #000;   /* ou une couleur spéciale si tu veux */
+}
+.boite1 {
+    display: flex;
+}
+
+table {
+    border: 2px solid black;
+    width: 100%;
+    border-collapse: collapse; /* pour coller les bordures */
+    
+}
+
+th, td {
+  padding: 6px 10px;
+  border: 1px solid #000;
+  text-align: start;   /* alignement par défaut à gauche */
+  font-size: 0.8rem;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  text-align: center;  /* centre uniquement la 3e colonne */
+}
+
+/* Bordure en pointillé qui pulse en couleur */
+.bd1 {
+  border: 2px dashed rgb(255, 0, 0);            /* garde le pointillé */
+  animation: borderPulse 1.2s infinite alternate;
+}
+@keyframes borderPulse {
+  from { border-color:#d00; }
+  to   { border-color:#ddd8d0; }
+}
+
+
+.modal {
+  display: none;                  /* invisible par défaut */
+  position: fixed;                /* couvre tout l’écran */
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);    /* fond sombre transparent */
+}
+
+/* Quand la modale est ciblée (#login dans l’URL) */
+.modal:target {
+  display: flex;                  /* devient visible */
+  align-items: center;            /* centre verticalement */
+  justify-content: center;        /* centre horizontalement */
+}
+
+
+
+.table-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+table{min-width:700px; border-collapse:collapse;}

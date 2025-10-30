@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+header {
+    background: rgb(211, 207, 207);
+    margin: 0;
+    padding: 0;
+
+}
+
+nav {
+ 
+    background: rgb(215, 211, 211);
+    margin: 0;
+    padding: 0;
+}
+table {
+    font-size: 0.8rem;
+}
+.table th:nth-child(3),
+.table td:nth-child(3) {
+  width: 15%;  /* la colonne occupe 15 % de la largeur totale du tableau */
+  text-align: center;
+}
+
+
+/* Bordure en pointillé qui pulse en couleur */
+.bd1 {
+  border: 2px dashed rgb(255, 0, 0);            /* garde le pointillé */
+  animation: borderPulse 500ms infinite alternate;
+}
+@keyframes borderPulse {
+  from { border-color:#d00; }
+  to   { border-color:#ffb236; }
+}
+
