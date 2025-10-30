@@ -82,6 +82,91 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+// Création du bouton
+let souris = document.createElement('button');
+souris.innerHTML = '🐁';
+header.appendChild(souris);
+
+// Style de base
+Object.assign(souris.style, {
+  fontSize: '2rem',
+  cursor: 'pointer',
+  border: 'none',
+  background: 'transparent',
+  position: 'absolute',
+  left: '50px',
+  top: '50px',
+  transition: 'left 0.5s ease, top 0.5s ease'
+});
+
+// Limite des coordonnées pour rester visible
+function clamp(val, min, max) {
+  return Math.min(Math.max(val, min), max);
+}
+
+let busy = false;
+
+souris.addEventListener('click', () => {
+  if (busy) return;
+  busy = true;
+
+  // Position aléatoire
+  const rect = souris.getBoundingClientRect();
+  const btnW = rect.width || 40;
+  const btnH = rect.height || 40;
+  const maxX = window.innerWidth - btnW - 10;
+  const maxY = window.innerHeight - btnH - 10;
+  const x = clamp(Math.random() * maxX, 10, maxX);
+  const y = clamp(Math.random() * maxY, 10, maxY);
+
+  souris.style.left = `${x}px`;
+  souris.style.top = `${y}px`;
+
+  // === Création du nuage cartoon ===
+  function createPuff(offsetX, scale) {
+    const puff = document.createElement('div');
+    document.body.appendChild(puff);
+    Object.assign(puff.style, {
+      position: 'absolute',
+      left: `${x + btnW / 2 + offsetX}px`,
+      top: `${y + btnH}px`,
+      width: `${25 * scale}px`,
+      height: `${15 * scale}px`,
+      background: 'radial-gradient(circle, white 60%, rgba(255,255,255,0) 100%)',
+      borderRadius: '50%',
+      filter: 'blur(3px)',
+      opacity: 0.8,
+      zIndex: 0,
+      pointerEvents: 'none'
+    });
+
+    puff.animate(
+      [
+        { transform: 'scale(0.5)', opacity: 0.8 },
+        { transform: 'scale(1.8)', opacity: 0 }
+      ],
+      { duration: 700 + Math.random() * 200, easing: 'ease-out' }
+    ).onfinish = () => puff.remove();
+  }
+
+  // Trois petites bulles pour l’effet cartoon 💨
+  createPuff(-10, 1);
+  createPuff(5, 1.2);
+  createPuff(0, 0.8);
+
+  // Animation de rebond
+  souris.animate(
+    [
+      { transform: 'translateY(0) scale(1)' },
+      { transform: 'translateY(-60px) scale(1.05)' },
+      { transform: 'translateY(0) scale(1)' },
+      { transform: 'translateY(-25px) scale(1.02)' },
+      { transform: 'translateY(0) scale(1)' }
+    ],
+    { duration: 1000, easing: 'ease-out' }
+  ).onfinish = () => busy = false;
+});
+
 
 });
 
