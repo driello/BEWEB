@@ -47,8 +47,8 @@ article {
 }
 
 article img {
-    max-width: 250px;
-    max-height: 150px;
+    width: 250px;
+    height: auto;
 }
 
 .dark {
@@ -97,6 +97,11 @@ article img {
 
 }
 
+.dark .avis{
+    background:wheat;
+    color: black;
+}
+
 /* Desktop par défaut : burger caché */
 .burger {
     display: none;
@@ -112,7 +117,7 @@ article img {
 }
 
 .presentation img {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
     width: 80%;
     height: auto;
     margin-top: 10px;
@@ -122,6 +127,29 @@ article img {
     margin-top: 20px;
 }
 
+.commentaires {
+    width: 80%;
+    border: 1px solid black;
+    overflow-y: auto;
+    display: grid;
+    background: whitesmoke;
+    align-items: baseline;
+    margin-bottom: 20px;
+
+}
+
+.avis {
+    display: grid;
+    text-align: start;
+    align-items: center;
+    height: 50px;
+    grid-template-columns: 15% 15% 70%;
+    border-bottom: 1px solid rebeccapurple;
+}
+
+.avis p {
+    text-align: center;
+}
 
 .infoCommerce {
     display: flex;
@@ -131,11 +159,16 @@ article img {
 }
 
 .horaires {
+    display: flex;
+    justify-content: center;
     background: whitesmoke;
+
+    width: 80%;
     margin-top: 10px;
     margin-right: 10px;
-border-radius: 10px;
+    border-radius: 10px;
 }
+
 .horaires h3 {
     text-align: center;
 }
@@ -144,13 +177,21 @@ border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    text-align: start;
+    flex-direction: column;
+    width: 80%;
 }
 
 .map {
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.commander {
+    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -166,6 +207,8 @@ border-radius: 10px;
 .fournisseurs {
     display: flex;
     justify-content: space-around;
+    flex-wrap: nowrap;
+    overflow-x: auto;
 }
 
 .fournisseurs article {
@@ -215,7 +258,8 @@ border-radius: 10px;
         display: flex;
         padding: 10px;
     }
-     nav ul {
+
+    header nav ul {
         display: flex;
         flex-direction: column;
         gap: 10px;
@@ -240,9 +284,13 @@ border-radius: 10px;
 
     article {
         margin-inline: 10px;
+
     }
 
-
+ footer {
+    display: flex;
+    flex-wrap: wrap;
+ }
     .presentation {
         margin: 0;
         width: 100%;
@@ -258,10 +306,13 @@ border-radius: 10px;
         flex-direction: column;
         align-items: center;
         gap: 20px;
+        width: 100%;
     }
-
-    .fournisseurs article {
-        width: 90%;
+.fournisseurs article{
+    width: 80%;
+}
+    .fournisseurs img {
+        width: 350px;
     }
 
     #section1 {
