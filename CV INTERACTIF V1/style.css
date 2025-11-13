@@ -1,0 +1,600 @@
+/* ===========================================================
+   Talentys – Bureau V1 (CSS nettoyé, même rendu visuel)
+   Auteur: Diego R.  |  Objectif: clair, green, sans régression
+   =========================================================== */
+
+/* ---------------------------
+   0) Variables / design tokens
+   --------------------------- */
+:root {
+  /* Couleurs globales */
+  --bg: #291c04;
+  /* fond page */
+  --text: #e7e7e7;
+  /* texte intro */
+  --title: wheat;
+  /* titres */
+  --accent: #00c8ff;
+  /* boutons, bordures interactives */
+  --chip-bg: #f1f5f9;
+  --chip-bd: #e2e8f0;
+
+  /* Thème sombre (éléments internes) */
+  --dark-chip-bg: #0f172a;
+  --dark-chip-bd: #1f2937;
+
+  /* Ombres & rayons */
+  --radius: 10px;
+}
+
+/* -------------------------
+   1) Reset simple & base UI
+   ------------------------- */
+/* évite les surprises de padding/margin par défaut */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+html,
+body {
+  min-height: 100%
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* centre vertical */
+  align-items: center;
+  /* centre horizontal */
+  min-height: 100vh;
+  background: var(--bg);
+  /* police gérée côté HTML si besoin */
+}
+
+/* --------------------
+   2) En-tête & accroche
+   -------------------- */
+header {
+  width: min(92vw, 1400px);
+  /* même largeur que la scène */
+  margin: 0 auto;
+  text-align: center;
+  color: var(--title);
+  background: transparent;
+  padding: 0;
+  line-height: 1.4;
+}
+
+header h1 {
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+  /* taille fluide */
+  font-weight: 500;
+  letter-spacing: .5px;
+  margin: .5rem 0 .2rem;
+  color: var(--title);
+}
+
+header p {
+  line-height: 1.6;
+  margin-bottom: .6rem;
+}
+
+header .intro,
+.intro {
+  color: var(--text);
+  text-align: center;
+  margin: .5rem 0 1rem;
+  opacity: .9;
+  font-size: clamp(.85rem, 1.4vw, 1rem);
+}
+
+.hint {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.cv-link {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cv-link:hover {
+  text-decoration: underline;
+}
+
+
+/* -------------------
+   3) Conteneur & scène
+   ------------------- */
+.stage {
+  width: min(92vw, 1400px)
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  /* garde les proportions */
+  background: url("./img/bureau2.webp") center/cover no-repeat;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+/* Gabarit des zones cliquables (placées en %) */
+.zone {
+  position: absolute
+}
+
+/* ----------------------------
+   4) Placements (en pourcentage)
+   ---------------------------- */
+.ecran-top {
+  left: 37%;
+  top: 13%;
+  width: 16%;
+  height: 20%;
+  background-image: url("./img/photoid.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.ecran-bottom {
+  left: 42%;
+  top: 42%;
+  width: 14%;
+  height: 12%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+.ecran-bottom img {
+  width: 90%;
+}
+
+
+/* Étagères */
+.etagere1,
+.etagere2,
+.etagere3 {
+  border-radius: 120px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+.etagere1 {
+  left: 31%;
+  top: 43%;
+  width: 7%;
+  height: 9%
+}
+
+.etagere1 img {
+  width: 80%
+}
+
+.etagere2 {
+  left: 61%;
+  top: 14%;
+  width: 7%;
+  height: 7%
+}
+
+.etagere2 img {
+  width: 60%;
+  border-radius: 120px
+}
+
+
+
+.etagere3 {
+  left: 60.8%;
+  top: 43%;
+  width: 8%;
+  height: 10%
+}
+
+.etagere3 img {
+  width: 80%
+}
+
+/* Tiroirs et dossier */
+.tiroir-gauche {
+  left: 26.4%;
+  bottom: 17.1%;
+  width: 10.5%;
+  height: 7%;
+  cursor: pointer;
+  border: 1px solid var(--accent);
+}
+
+.tiroir-droit {
+  right: 29%;
+  bottom: 19%;
+  width: 10%;
+  height: 13%;
+  cursor: pointer;
+  border: 1px solid var(--accent);
+}
+
+.dossier {
+  right: 10%;
+  top: 20%;
+  width: 12%;
+  height: 30%;
+  cursor: pointer;
+}
+
+/* ----------------
+   5) Popups (modals)
+   ---------------- */
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .6);
+  display: none;
+  /* géré en JS → 'flex' pour ouvrir */
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  width: min(92vw, 900px);
+  height: auto;
+  max-height: 84dvh;   /* mieux géré sur mobile iOS */ 
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
+  /* rendu final souhaité */
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+}
+
+.close-btn {
+  margin-top: 15px;
+  padding: 8px 15px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ----------------
+   6) Section XP/CV
+   ---------------- */
+
+
+.xp:first-of-type {
+  border-top: none
+}
+
+.xp header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.xp h3 {
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+  color: black;
+}
+
+.xp {
+  border-bottom: 1px solid var(--bg);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+.dark .xp{
+    border-bottom: 1px solid var(--title);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+
+}
+
+
+
+/* ⚠️ Info: le sélecteur suivant applique 'h2' en global.
+      Je le laisse pour ne rien changer visuellement. */
+.dark .xp h3,
+h2 {
+  color: var(--title)
+}
+
+.xp__meta {
+  font-size: .95rem;
+  color: var(--bg);
+  margin-left: 10px;
+
+}
+
+
+.xp-list {
+  margin: 4px 0 10px 1rem;
+  padding: 0;
+  line-height: 1.5;
+  text-align: start;
+  list-style: none;
+
+}
+
+.xp-list li {
+  margin-bottom: 2px;
+}
+
+#cvxp {
+  color: whitesmoke;
+  text-align: center;
+  margin-top: 60%;
+}
+
+/* Soleil (toggle thème) */
+.soleil {
+  left: 12%;
+  top: 18%
+}
+
+/* Thème sombre */
+.dark .scene {
+  background-image: url("./img/bureau4.webp")
+}
+body.dark {
+  background: #111827;
+}
+
+
+.dark .popup-content {
+  color: #e5e7eb; 
+   background: #111827;
+    box-shadow: 0 0 18px rgba(255, 215, 0, .1);
+}
+.dark a {
+  color: var(--accent);
+}
+.dark .xp__meta { color: var(--title); }
+
+
+.tiroir-img {
+  width: 50%
+}
+
+.gallery {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+}
+
+.gallery img {
+  width: 350px;
+  height: 250px;
+  /* format fixe (calibré) */
+}
+
+/* ---------------------
+   8) Pop-up Infos / carte
+   --------------------- */
+#popInfos .popup-content {
+  text-align: left;
+  max-width: min(92vw, 720px);
+  max-height: 70dvh;
+}
+
+
+.popup-content h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  background: var(--bg);
+  background: linear-gradient(to right, #000000, #5a0a0a 40%);
+  padding: 4px 0;
+  
+}
+
+#popInfos .close-btn {
+  display: block;
+  margin: 20px auto 0;
+}
+.popup-content hr {
+  margin: 1.2rem 0;
+}
+
+
+/* Carte infos (2 colonnes) */
+.carte-infos {
+  list-style: none;
+  margin-top: 20px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+  
+}
+
+.carte-infos li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+/* -----------------
+   9) Réactivité (RWD)
+   ----------------- */
+@media (max-width:560px) {
+  .carte-infos {
+    grid-template-columns: 1fr
+  }
+}
+
+@media (max-width:760px) {
+  .gallery img {
+    height: 150px
+  }
+
+  h2 {
+    font-size: large
+  }
+
+  h1 {
+    font-size: larger
+  }
+}
+
+/* ------------------------
+   CTA Télécharger le CV
+   ------------------------ */
+.cta-cv {
+  position: static;
+  right: 18px;
+  bottom: 18px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(0, 200, 255, .25);
+  font-size: 0.9rem;
+
+}
+
+.cta-cv:hover {
+  filter: brightness(1.05)
+}
+
+/* ------------------------------------
+    Feedback interactif & animations
+   ------------------------------------ */
+/* accessibilité visuelle + pointeur main */
+.zone[role="button"] {
+  cursor: pointer
+}
+
+/* micro-animations (hover + respiration douce) */
+.etagere1,
+.etagere2,
+.etagere3,
+.ecran-bottom,
+.tiroir-gauche,
+.tiroir-droit,
+.dossier {
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.etagere1:hover,
+.etagere2:hover,
+.etagere3:hover,
+.ecran-bottom:hover,
+.tiroir-gauche:hover,
+.tiroir-droit:hover,
+.dossier:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, .15),
+    0 0 22px rgba(255, 215, 0, .25);
+}
+
+/* halo léger permanent */
+.etagere1::after,
+.etagere2::after,
+.etagere3::after,
+.ecran-bottom::after,
+.tiroir-gauche::after,
+.tiroir-droit::after,
+.dossier::after {
+  content: '';
+  position: absolute;
+  inset: -2%;
+  border-radius: 18px;
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  animation: softPulse 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes softPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0)
+  }
+
+  50% {
+    box-shadow: 0 0 24px 0 rgba(255, 255, 255, .18)
+  }
+}
+
+/* --------------------
+   Chips de compétences
+   -------------------- */
+.sub {
+  margin: 14px 0 8px;
+  font-size: 1.35rem
+}
+
+.chips {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 2vh 0 3vh;
+}
+
+.chips li {
+  background: var(--chip-bg);
+  border: 1px solid var(--chip-bd);
+  padding: .4rem .6rem;
+  border-radius: 999px;
+  font-size: 1.15rem;
+}
+
+.dark .chips li {
+  background: var(--dark-chip-bg);
+  border-color: var(--dark-chip-bd);
+  color: #fff;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 4px;
+  padding: 1rem 0.5rem;
+  color: var(--text);
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+footer img{
+  width: 35px;
+  border-radius: 150px;
+}
+
+/* ----------------
+   Keyframes misc
+   ---------------- */
+@keyframes glow {
+  from {
+    box-shadow: 0 0 3px #16a34a
+  }
+
+  to {
+    box-shadow: 0 0 1px #16a34a, 0 0 25px #9fc106
+  }
+}
+/* Mobile: respirations et largeur plein écran - marge */
+@media (max-width: 640px){
+  .popup-content{
+    width: calc(100vw - 24px);
+    padding: 14px 16px;
+    border-radius: 10px;
+  }
+}
+
+
