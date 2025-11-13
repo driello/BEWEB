@@ -19,7 +19,7 @@ let theme = localStorage.getItem('theme');
 if (theme === 'dark') {
   document.body.classList.add('dark');
 }
-
+ 
 
 
 // 🔹 Quand toute la page (HTML) est chargée, on exécute ce code
@@ -88,7 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let commandeBouton = document.createElement('button')
   commande.className = 'commande';
   commande.style.background = 'rgb(225, 146, 0)';
-  commande.style.display = 'flex';;
+    commande.style.marginInline = '50px'
+  commande.style.display = 'flex';
   commande.style.flexDirection = 'column';
   commande.style.justifyContent = 'center';
   commande.style.alignItems = 'center';

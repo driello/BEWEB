@@ -7,7 +7,7 @@ BONNE PRATIQUE CLAASER LE CSS DANS L'ORDRE
 
 body {
     background: rgb(225, 146, 0);
-    margin: 10px;
+    margin:2%;
 }
 
 header {
@@ -47,8 +47,9 @@ article {
 }
 
 article img {
-    width: 250px;
+   max-width: 90%;
     height: auto;
+    min-width: 250px;
 }
 
 .dark {
@@ -101,7 +102,9 @@ article img {
     background:wheat;
     color: black;
 }
-
+.dark .fournisseurs article{
+    background: rgb(50, 37, 12);
+}
 /* Desktop par défaut : burger caché */
 .burger {
     display: none;
@@ -128,28 +131,35 @@ article img {
 }
 
 .commentaires {
-    width: 80%;
-    border: 1px solid black;
-    overflow-y: auto;
-    display: grid;
-    background: whitesmoke;
-    align-items: baseline;
-    margin-bottom: 20px;
+    max-width: 900px;                 /* limite sur grands écrans */
+  width: min(92%, 60rem);           /* fluide */
+  margin-inline: auto;              /* centré */
+  padding: 1rem;                    /* respiration */
+  border-radius: .5rem;
+  max-height: 60vh;                 /* évite une page trop longue */
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+  background: whitesmoke;
 
 }
-
 .avis {
-    display: grid;
-    text-align: start;
-    align-items: center;
-    height: 50px;
-    grid-template-columns: 15% 15% 70%;
-    border-bottom: 1px solid rebeccapurple;
-}
+  display: grid;
+  align-items: center;
+  gap: .5rem 1rem;
+  padding-block: .75rem;
+  border-bottom: 1px solid rebeccapurple;
 
-.avis p {
-    text-align: center;
+  /* 2 colonnes par défaut : auteur + étoiles en haut, commentaire en dessous */
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "user stars" "comment comment";
 }
+.avis .user   { grid-area: user;    text-align: left;  }
+.avis .etoile { grid-area: stars;   text-align: left; }
+.avis .com    { grid-area: comment; text-align: left;  }
+
+.avis p { margin: 0; line-height: 1.35; }
+.avis p,
+.avis .com { overflow-wrap: anywhere; hyphens: auto; }
 
 .infoCommerce {
     display: flex;
@@ -183,12 +193,14 @@ article img {
 }
 
 .map {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 90%;
 }
+
 
 .commander {
     display: flex;
@@ -201,6 +213,7 @@ article img {
     justify-content: space-around;
     align-items: center;
     background: wheat;
+    
 
 }
 
@@ -297,8 +310,14 @@ article img {
     }
 
     .produits {
-        overflow-x: auto;
+        display: flex;
+        overflow: auto;
+
     }
+    .produits > div {
+  min-width: 250px;
+  margin-right: 10px;
+}
 
 
     .fournisseurs {
@@ -325,4 +344,14 @@ article img {
         margin: 10px;
     }
 
+}
+
+@media (min-width: 640px) {
+  .avis {
+    grid-template-columns:
+      clamp(72px, 18%, 140px)   /* auteur (mini/maxi) */
+      clamp(64px, 16%, 120px)   /* étoiles */
+      1fr;                      /* commentaire */
+    grid-template-areas: "user stars comment";
+  }
 }
