@@ -1,3 +1,7 @@
+// 👉 On utilise un router pour séparer les routes du reste du serveur, 
+// rendre le code plus clair, mieux organisé, 
+// et éviter que server.js devienne trop long.
+
 // Import d'Express et du contrôleur
 const express = require('express');
 const router = express.Router();

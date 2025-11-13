@@ -1,3 +1,8 @@
+//👉 try exécute le code normal (appel à la base, création, mise à jour…), 
+// et catch sert à intercepter les erreurs (ex : ID invalide, données manquantes, problème de connexion). 
+// Sans try/catch, ton serveur planterait au lieu d’envoyer une réponse JSON propre.
+
+
 // Import du modèle Product
 const Product = require('../models/product');
 
@@ -64,7 +69,6 @@ const getProductById = async (req, res) => {
     }
 };
 
-// Mettre à jour un produit
 // Mettre à jour un produit
 const updateProduct = async (req, res) => {
     try {

@@ -1,3 +1,6 @@
+// 👉 server.js sert à importer les outils nécessaires, configurer Express,
+// se connecter à MongoDB, monter les routes, puis démarrer le serveur.
+
 
 // Import des modules nécessaires
 const express = require('express');
