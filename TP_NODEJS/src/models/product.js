@@ -3,6 +3,11 @@ const mongoose = require('mongoose');
 
 // Définition du schéma Product (structure des documents en base)
 const productSchema = new mongoose.Schema({
+  category:{
+    type: String,
+    required: true,
+    enum: ["boisson", "aliment", "epicerie"],
+  },
   name: {
     type: String,
     required: true

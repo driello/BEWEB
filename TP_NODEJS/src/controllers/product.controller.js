@@ -1,28 +1,38 @@
 //👉 try exécute le code normal (appel à la base, création, mise à jour…), 
 // et catch sert à intercepter les erreurs (ex : ID invalide, données manquantes, problème de connexion). 
-// Sans try/catch, ton serveur planterait au lieu d’envoyer une réponse JSON propre.
+// Sans try/catch, le serveur planterait au lieu d’envoyer une réponse JSON propre.
 
 
 // Import du modèle Product
 const Product = require('../models/product');
+const productListView = require('../view/product/productListView');
+const addProductView = require('../view/product/addProductView');
 
-// Créer un produit
+
+// afficher le formulaire html pour créer un produit
+const showProductForm = async (req, res) => {
+    res.send(addProductView())
+};
+
+
 // Créer un produit
 const createProduct = async (req, res) => {
     try {
         // 1. Récupérer les données envoyées dans la requête
-        const { name, description, price, quantity } = req.body;
+        const { category, name, description, price, quantity } = req.body;
 
         // 2. Créer un nouveau produit en base
         const newProduct = await Product.create({
-            name,
-            description,
-            price,
-            quantity
+            category : category ,
+            name : name,
+            description : description ,
+            price : price,
+            quantity : quantity,
         });
 
         // 3. Répondre avec un statut 201 (créé) et le produit créé
-        res.status(201).json(newProduct);
+        res.status(201).redirect('/products');
+        // res.send(addProductView(req, newProduct));
 
     } catch (error) {
         // 4. Si erreur : répondre avec un statut 400 (bad request)
@@ -38,7 +48,8 @@ const getAllProducts = async (req, res) => {
         const products = await Product.find();
 
         // 2. Répondre avec un statut 200 et la liste des produits
-        res.status(200).json(products);
+        // res.status(200).json(products);
+        res.send(productListView(req, products));  // doit renvoyer la liste des produits en html
 
     } catch (error) {
         // 3. En cas d'erreur, envoyer une réponse 500 (erreur serveur)
@@ -76,12 +87,12 @@ const updateProduct = async (req, res) => {
         const { id } = req.params;
 
         // 2. Récupérer les nouvelles données envoyées dans le body
-        const { name, description, price, quantity } = req.body;
+        const { category, name, description, price, quantity } = req.body;
 
         // 3. Mettre à jour en base
         const updatedProduct = await Product.findByIdAndUpdate(
             id,
-            { name, description, price, quantity },
+            { category, name, description, price, quantity },
             { new: true, runValidators: true }
         );
 
@@ -101,32 +112,32 @@ const updateProduct = async (req, res) => {
 
 // Supprimer un produit
 const deleteProduct = async (req, res) => {
-  try {
-    // 1. Récupérer l'id depuis l'URL
-    const { id } = req.params;
+    try {
+        // 1. Récupérer l'id depuis l'URL
+        const { id } = req.params;
 
-    // 2. Supprimer le produit
-    const deletedProduct = await Product.findByIdAndDelete(id);
+        // 2. Supprimer le produit
+        const deletedProduct = await Product.findByIdAndDelete(id);
 
-    // 3. Si produit introuvable → 404
-    if (!deletedProduct) {
-      return res.status(404).json({ message: "Produit non trouvé" });
+        // 3. Si produit introuvable → 404
+        if (!deletedProduct) {
+            return res.status(404).json({ message: "Produit non trouvé" });
+        }
+
+        // 4. Produit supprimé → 200 + message
+        res.status(200).json({ message: "Produit supprimé avec succès" });
+
+    } catch (error) {
+        // 5. Erreur → 400
+        res.status(400).json({ message: error.message });
     }
-
-    // 4. Produit supprimé → 200 + message
-    res.status(200).json({ message: "Produit supprimé avec succès" });
-
-  } catch (error) {
-    // 5. Erreur → 400
-    res.status(400).json({ message: error.message });
-  }
 };
-
 // Export des fonctions pour les utiliser dans les routes
 module.exports = {
     createProduct,
     getAllProducts,
     getProductById,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    showProductForm
 };

@@ -4,12 +4,19 @@
 
 // Import des modules nécessaires
 const express = require('express');
-const cors = require('cors');
+const cors = require('cors');       // filtre l'adresse de la requete si autorisée
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+//const cookieParser = require('cookie-parser');  // parse les cookies pour afficher du json (authentification connexion)
+//app.use(cookieParser());
+
 // Création de l'application Express
 const app = express();
+
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended :true})); // parse la res json pour l'afficher en text
+
 
 // Middlewares globaux
 app.use(express.json()); // permet de lire le JSON dans les requêtes

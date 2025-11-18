@@ -8,11 +8,13 @@ const router = express.Router();
 const productController = require('../controllers/product.controller');
 
 // Routes CRUD pour les produits
-router.post('/', productController.createProduct);        // Créer un produit
-router.get('/', productController.getAllProducts);        // Lire tous les produits
-router.get('/:id', productController.getProductById);     // Lire un produit par ID
-router.put('/:id', productController.updateProduct);      // Mettre à jour un produit
-router.delete('/:id', productController.deleteProduct);   // Supprimer un produit
+router.get('/showForm', productController.showProductForm);
+router.post('/addProduct', productController.createProduct);         // Créer un produit               CREATE = POST
+router.get('/', productController.getAllProducts);                   // Lire tous les produits         READ   = GET 
+router.get('/:id', productController.getProductById);                // Lire un produit par ID         
+router.put('/:id', productController.updateProduct);                // Mettre à jour un produit       UPDATE = PUT
+router.delete('/:id', productController.deleteProduct);            // Supprimer un produit           DELETE = DELETE
+
 
 // Export du router
 module.exports = router;
