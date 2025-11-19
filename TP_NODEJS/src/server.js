@@ -6,10 +6,9 @@
 const express = require('express');
 const cors = require('cors');       // filtre l'adresse de la requete si autorisée
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');  // parse les cookies pour afficher du json (authentification connexion)
 require('dotenv').config();
 
-//const cookieParser = require('cookie-parser');  // parse les cookies pour afficher du json (authentification connexion)
-//app.use(cookieParser());
 
 // Création de l'application Express
 const app = express();
@@ -19,22 +18,26 @@ app.use(bodyParser.urlencoded({extended :true})); // parse la res json pour l'af
 
 
 // Middlewares globaux
-app.use(express.json()); // permet de lire le JSON dans les requêtes
-app.use(cors()); // autorise les requêtes venant d'autres domaines
+app.use(cors());
+app.use(express.json());      // Pour lire le JSON dans req.body
+app.use(cookieParser());      // Pour lire les cookies (JWT)
 
-// Import des routes produits
+// Import des routes produits et JWT
 const productRoutes = require('./routes/product.routes');
+const authRoutes = require('./routes/auth.routes');  // routes d'authentification (login)
+
 
 // Récupération du PORT depuis le fichier .env (ou 3000 par défaut)
 const PORT = process.env.PORT || 3000;
 
-// Connexion à MongoDB puis démarrage du serveur
+// Connexion à MongoDB via mongoose puis démarrage du serveur
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('✅ Connecté à MongoDB');
 
     // Montage des routes produits
+    app.use('/auth', authRoutes);
     app.use('/products', productRoutes);
 
     // Démarrage du serveur

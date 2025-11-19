@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken'); // permet d’utiliser jsonwebtoken dans ce fichier
 
 const auth = (req, res, next) => {
+    console.log('🧪 Passage dans le middleware auth');
   try {
     const token = req.cookies?.token; // récupère le token dans les cookies (nécessite cookie-parser)
 
@@ -13,6 +14,9 @@ const auth = (req, res, next) => {
 
     // stocke les infos du token dans req.user
     req.user = decoded;
+
+    console.log('👤 Utilisateur authentifié via JWT :', req.user);
+
 
     // Si tout est ok, on passe à la suite
     return next();
